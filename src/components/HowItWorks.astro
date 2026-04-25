@@ -1,0 +1,64 @@
+---
+interface Props {
+	lang: 'en' | 'es';
+}
+const { lang } = Astro.props;
+const t = (en: string, es: string) => (lang === 'es' ? es : en);
+
+const steps = [
+	{
+		label: t('External backend', 'Backend externo'),
+		desc: t('Your TTS, conversation engine, or scripted controller.', 'Tu motor de TTS, conversación o controlador scripteado.'),
+		iconPath: 'M4 6h16v12H4Zm4 4h.01M8 14h.01M12 10h6M12 14h6',
+	},
+	{
+		label: t('TCP socket', 'Socket TCP'),
+		desc: t('PCM audio + JSON commands on port 4500.', 'Audio PCM + comandos JSON en el puerto 4500.'),
+		iconPath: 'M3 12h2l3-9 4 18 3-12 2 6h4',
+	},
+	{
+		label: t('AvatarDirector plugin', 'Plugin AvatarDirector'),
+		desc: t('Single-threaded ingress, game-thread fan-out, state machine.', 'Ingreso de un solo hilo, fan-out en game thread, máquina de estados.'),
+		iconPath: 'M12 2 2 7l10 5 10-5-10-5Zm-10 12 10 5 10-5M2 17l10 5 10-5',
+	},
+	{
+		label: t('MetaHuman avatar', 'Avatar MetaHuman'),
+		desc: t('Lip-sync, emotion, gesture and gaze applied in real time.', 'Lip-sync, emoción, gestos y mirada aplicados en tiempo real.'),
+		iconPath: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 9v-1a7 7 0 0 1 14 0v1',
+	},
+];
+---
+
+<section class="border-t border-white/[0.06] py-16 md:py-20">
+	<div class="mx-auto max-w-[1280px] px-6">
+		<div class="mb-10 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+			<div>
+				<div class="text-xs font-semibold tracking-wider text-ad-cyan uppercase">{t('How it works', 'Cómo funciona')}</div>
+				<h2 class="mt-2 text-3xl font-bold tracking-tight md:text-4xl">{t('Backend speaks. Avatar performs.', 'El backend habla. El avatar actúa.')}</h2>
+			</div>
+			<p class="max-w-md text-sm leading-relaxed text-ad-fog">
+				{t(
+					'One TCP connection carries everything: PCM audio for the mouth, JSON for everything else. The plugin marshals all dispatches onto the game thread before touching animation state.',
+					'Una sola conexión TCP lo lleva todo: audio PCM para la boca, JSON para el resto. El plugin lleva cada despacho al game thread antes de tocar el estado de animación.'
+				)}
+			</p>
+		</div>
+		<ol class="grid gap-3 md:grid-cols-4">
+			{steps.map((s, i) => (
+				<li class="ad-card relative flex flex-col gap-3 p-5">
+					<div class="flex items-center gap-3">
+						<div class="flex size-10 items-center justify-center rounded-lg ad-grad-bg text-white">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d={s.iconPath}/></svg>
+						</div>
+						<span class="text-xs font-semibold tracking-wider text-ad-fog uppercase">{`0${i + 1}`}</span>
+					</div>
+					<h3 class="text-base font-semibold text-white">{s.label}</h3>
+					<p class="text-sm leading-relaxed text-ad-fog">{s.desc}</p>
+					{i < steps.length - 1 && (
+						<svg class="absolute -right-3 top-1/2 hidden size-6 -translate-y-1/2 text-ad-fog/40 md:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+					)}
+				</li>
+			))}
+		</ol>
+	</div>
+</section>

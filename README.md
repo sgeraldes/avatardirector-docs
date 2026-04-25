@@ -1,49 +1,47 @@
-# Starlight Starter Kit: Basics
+# AvatarDirector docs
 
-[![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
+Public documentation site for the **AvatarDirector** Unreal Engine 5.7 plugin — real-time MetaHuman control over a single TCP socket.
 
-```
-npm create astro@latest -- --template starlight
-```
+Live at: **https://sgeraldes.github.io/avatardirector-docs/**
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Stack
 
-## 🚀 Project Structure
+- [Astro 6](https://astro.build/) + [Starlight](https://starlight.astro.build/)
+- [Tailwind CSS v4](https://tailwindcss.com/) for the marketing landing
+- Inter (variable, self-hosted) for typography
+- Bilingual (EN default, ES at `/es/`)
+- Static output, deployed to GitHub Pages by GitHub Actions
 
-Inside of your Astro + Starlight project, you'll see the following folders and files:
+## Local development
 
-```
-.
-├── public/
-├── src/
-│   ├── assets/
-│   ├── content/
-│   │   └── docs/
-│   └── content.config.ts
-├── astro.config.mjs
-├── package.json
-└── tsconfig.json
+```bash
+npm install
+npm run dev      # starts the dev server at http://localhost:4321
+npm run build    # outputs static site to ./dist
+npm run preview  # serves the built ./dist locally
 ```
 
-Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
+## Project layout
 
-Images can be added to `src/assets/` and embedded in Markdown with a relative link.
+```
+src/
+├── assets/             # Logos and inline-imported images
+├── components/         # Astro components used by the landing pages
+├── content/docs/       # Starlight markdown — EN docs (root), ES under es/
+├── layouts/            # Custom Astro layout for the landings
+├── pages/              # Custom Astro pages (/, /es/) — non-Starlight
+└── styles/global.css   # Design tokens + Starlight theme overrides
+public/
+├── avatar/             # Hero image and other generated assets
+└── favicon.svg
+```
 
-Static assets, like favicons, can be placed in the `public/` directory.
+## Adding a doc page
 
-## 🧞 Commands
+1. Add the markdown file under `src/content/docs/` for EN, and `src/content/docs/es/` for ES (mirrored slug).
+2. Add an entry to the `sidebar` in `astro.config.mjs` with a `translations: { es: '...' }` label.
+3. `npm run build` to verify.
 
-All commands are run from the root of the project, from a terminal:
+## Sanitization rule
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).
+This site documents the public surface of the plugin only. No `.cpp` / `.h` filenames, no source-line citations, no `Source/` paths. The build CI fails if any of those slip into a markdown file.

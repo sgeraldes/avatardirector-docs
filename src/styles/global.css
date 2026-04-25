@@ -1,0 +1,162 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+
+/* AvatarDirector design tokens — single source of truth.
+   Mirrors the brand mockup: dark only, gradient-forward. */
+:root {
+	--ad-violet: #6c5cff;
+	--ad-cyan: #00d1ff;
+	--ad-mint: #7ae582;
+	--ad-amber: #ffc857;
+	--ad-coral: #ff6b6b;
+	--ad-fog: #a1a6b2;
+	--ad-ink: #1a1f2b;
+	--ad-void: #0f1219;
+	--ad-white: #ffffff;
+
+	--ad-grad-primary: linear-gradient(135deg, #6c5cff 0%, #00d1ff 100%);
+	--ad-grad-cyan-mint: linear-gradient(135deg, #00d1ff 0%, #7ae582 100%);
+	--ad-grad-amber-coral: linear-gradient(135deg, #ffc857 0%, #ff6b6b 100%);
+
+	--ad-shadow-glow: 0 0 32px -4px rgba(108, 92, 255, 0.45);
+	--ad-shadow-card: 0 1px 0 0 rgba(255, 255, 255, 0.04) inset,
+		0 8px 24px -12px rgba(0, 0, 0, 0.6);
+}
+
+/* Starlight theme overrides — dark theme only. We set both [data-theme] blocks
+   to identical values so the user can't accidentally land in a light-mode flash. */
+:root,
+:root[data-theme='dark'],
+:root[data-theme='light'] {
+	--sl-font: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+	--sl-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+	--sl-color-bg: var(--ad-void);
+	--sl-color-bg-nav: rgba(15, 18, 25, 0.85);
+	--sl-color-bg-sidebar: var(--ad-void);
+	--sl-color-bg-inline-code: rgba(108, 92, 255, 0.12);
+
+	--sl-color-text: #e6e8ee;
+	--sl-color-text-invert: var(--ad-void);
+	--sl-color-text-accent: var(--ad-cyan);
+
+	--sl-color-accent-low: rgba(108, 92, 255, 0.15);
+	--sl-color-accent: var(--ad-violet);
+	--sl-color-accent-high: var(--ad-cyan);
+
+	--sl-color-white: var(--ad-white);
+	--sl-color-gray-1: #d4d7de;
+	--sl-color-gray-2: var(--ad-fog);
+	--sl-color-gray-3: #6e7480;
+	--sl-color-gray-4: #3a3f4a;
+	--sl-color-gray-5: #232733;
+	--sl-color-gray-6: var(--ad-ink);
+
+	--sl-color-hairline: rgba(161, 166, 178, 0.12);
+	--sl-color-hairline-light: rgba(161, 166, 178, 0.2);
+	--sl-color-hairline-shade: rgba(161, 166, 178, 0.08);
+
+	color-scheme: dark;
+}
+
+html {
+	background: var(--ad-void);
+}
+
+body {
+	font-family: var(--sl-font);
+	color: var(--sl-color-text);
+	-webkit-font-smoothing: antialiased;
+}
+
+/* Inline brand utilities used by the landing page. */
+@theme {
+	--color-ad-violet: #6c5cff;
+	--color-ad-cyan: #00d1ff;
+	--color-ad-mint: #7ae582;
+	--color-ad-amber: #ffc857;
+	--color-ad-coral: #ff6b6b;
+	--color-ad-fog: #a1a6b2;
+	--color-ad-ink: #1a1f2b;
+	--color-ad-void: #0f1219;
+	--font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+}
+
+.ad-grad-text {
+	background: var(--ad-grad-primary);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+.ad-grad-bg {
+	background: var(--ad-grad-primary);
+}
+
+.ad-card {
+	background: var(--ad-ink);
+	border: 1px solid var(--sl-color-hairline);
+	border-radius: 16px;
+	box-shadow: var(--ad-shadow-card);
+}
+
+.ad-btn-primary {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.75rem 1.25rem;
+	border-radius: 10px;
+	background: var(--ad-grad-primary);
+	color: var(--ad-white);
+	font-weight: 600;
+	font-size: 0.95rem;
+	transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.ad-btn-primary:hover {
+	box-shadow: var(--ad-shadow-glow);
+	transform: translateY(-1px);
+}
+
+.ad-btn-secondary {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.75rem 1.25rem;
+	border-radius: 10px;
+	background: var(--ad-ink);
+	color: var(--ad-white);
+	border: 1px solid var(--sl-color-hairline-light);
+	font-weight: 600;
+	font-size: 0.95rem;
+	transition: border-color 0.2s ease;
+}
+.ad-btn-secondary:hover {
+	border-color: var(--ad-fog);
+}
+
+.ad-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.35rem 0.75rem;
+	border-radius: 999px;
+	background: var(--ad-ink);
+	border: 1px solid var(--sl-color-hairline);
+	color: var(--ad-fog);
+	font-size: 0.8rem;
+	font-weight: 500;
+}
+.ad-pill .dot {
+	width: 0.5rem;
+	height: 0.5rem;
+	border-radius: 999px;
+	background: var(--ad-mint);
+}
+.ad-pill.is-warning .dot { background: var(--ad-amber); }
+.ad-pill.is-error .dot   { background: var(--ad-coral); }
+.ad-pill.is-info .dot    { background: var(--ad-cyan); animation: ad-pulse 1.6s ease-in-out infinite; }
+
+@keyframes ad-pulse {
+	0%, 100% { opacity: 1; transform: scale(1); }
+	50% { opacity: 0.6; transform: scale(1.4); }
+}

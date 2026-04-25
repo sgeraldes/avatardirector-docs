@@ -1,0 +1,103 @@
+---
+interface Props {
+	lang: 'en' | 'es';
+}
+const { lang } = Astro.props;
+const t = (en: string, es: string) => (lang === 'es' ? es : en);
+
+const palette = [
+	{ name: '#6C5CFF', label: 'Violet' },
+	{ name: '#00D1FF', label: 'Cyan' },
+	{ name: '#7AE582', label: 'Mint' },
+	{ name: '#FFC857', label: 'Amber' },
+	{ name: '#FF6B6B', label: 'Coral' },
+	{ name: '#A1A6B2', label: 'Fog' },
+	{ name: '#1A1F2B', label: 'Ink' },
+	{ name: '#0F1219', label: 'Void' },
+];
+---
+
+<section class="border-t border-white/[0.06] py-16 md:py-20">
+	<div class="mx-auto max-w-[1280px] px-6">
+		<div class="mb-10 max-w-2xl">
+			<div class="text-xs font-semibold tracking-wider text-ad-cyan uppercase">{t('Design system', 'Sistema de diseño')}</div>
+			<h2 class="mt-2 text-3xl font-bold tracking-tight md:text-4xl">{t('Built for performance. Designed for expressiveness.', 'Construido para el rendimiento. Diseñado para la expresividad.')}</h2>
+		</div>
+
+		<div class="grid gap-4 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
+			<div class="ad-card p-6">
+				<div class="mb-4 text-[11px] font-semibold tracking-wider text-ad-fog uppercase">{t('Color palette', 'Paleta')}</div>
+				<div class="grid grid-cols-4 gap-3">
+					{palette.map((c) => (
+						<div>
+							<div class="aspect-square w-full rounded-md ring-1 ring-white/10" style={`background:${c.name}`}></div>
+							<div class="mt-2 font-mono text-[10px] uppercase tracking-wider text-ad-fog">{c.name}</div>
+						</div>
+					))}
+				</div>
+				<div class="mt-5 grid gap-2 sm:grid-cols-3">
+					<div class="h-8 rounded-md" style="background: linear-gradient(135deg,#6C5CFF,#00D1FF)"></div>
+					<div class="h-8 rounded-md" style="background: linear-gradient(135deg,#00D1FF,#7AE582)"></div>
+					<div class="h-8 rounded-md" style="background: linear-gradient(135deg,#FFC857,#FF6B6B)"></div>
+				</div>
+			</div>
+
+			<div class="ad-card p-6">
+				<div class="mb-4 text-[11px] font-semibold tracking-wider text-ad-fog uppercase">{t('Typography', 'Tipografía')}</div>
+				<div class="text-6xl font-bold leading-none tracking-tight text-white">Aa</div>
+				<div class="mt-2 text-xs text-ad-fog">Inter Variable</div>
+				<ul class="mt-4 space-y-1 text-sm">
+					<li class="font-light text-white">Light · 300</li>
+					<li class="font-normal text-white">Regular · 400</li>
+					<li class="font-medium text-white">Medium · 500</li>
+					<li class="font-semibold text-white">Semibold · 600</li>
+					<li class="font-bold text-white">Bold · 700</li>
+				</ul>
+			</div>
+
+			<div class="ad-card p-6">
+				<div class="mb-4 text-[11px] font-semibold tracking-wider text-ad-fog uppercase">{t('Iconography', 'Iconografía')}</div>
+				<div class="grid grid-cols-3 gap-3 text-ad-fog">
+					{[
+						'M3 12h2l3-9 4 18 3-12 2 6h4',
+						'M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20Zm-3-9c0 1.7 1.3 3 3 3s3-1.3 3-3M9 9h.01M15 9h.01',
+						'M12 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm-2 7v4l-3 9h2l2-6 1 6h2l1-6 2 6h2l-3-9V9h-6Z',
+						'M4 6h16v4H4ZM4 14h16v4H4Z',
+						'M9 7l3 3-3 3M14 7l3 3-3 3',
+						'M5 12h14M13 5l7 7-7 7',
+						'M5 4h14v16H5Z',
+						'M12 8v8M8 12h8',
+						'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z',
+					].map((p) => (
+						<div class="flex aspect-square items-center justify-center rounded-md border border-white/10 bg-white/[0.02]">
+							<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d={p}/></svg>
+						</div>
+					))}
+				</div>
+			</div>
+
+			<div class="ad-card p-6">
+				<div class="mb-4 text-[11px] font-semibold tracking-wider text-ad-fog uppercase">{t('UI components', 'Componentes')}</div>
+				<div class="flex flex-wrap items-center gap-2">
+					<button type="button" class="ad-btn-primary text-xs">{t('Primary', 'Primary')}</button>
+					<button type="button" class="ad-btn-secondary text-xs">{t('Secondary', 'Secondary')}</button>
+					<button type="button" class="ad-btn-secondary text-xs" style="background:transparent">Ghost</button>
+				</div>
+				<div class="mt-5 flex flex-wrap items-center gap-2">
+					<span class="ad-pill"><span class="dot"></span>{t('Connected', 'Conectado')}</span>
+					<span class="ad-pill is-info"><span class="dot"></span>{t('Processing', 'Procesando')}</span>
+					<span class="ad-pill is-warning"><span class="dot"></span>{t('Warning', 'Aviso')}</span>
+				</div>
+				<div class="mt-5">
+					<div class="mb-2 flex items-center justify-between text-xs text-ad-fog">
+						<span>{t('Mood blend', 'Mezcla mood')}</span>
+						<span>75%</span>
+					</div>
+					<div class="h-2 w-full overflow-hidden rounded-full bg-white/[0.06]">
+						<div class="h-full w-3/4 ad-grad-bg"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

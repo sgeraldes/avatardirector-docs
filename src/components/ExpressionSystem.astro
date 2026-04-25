@@ -1,0 +1,64 @@
+---
+interface Props {
+	lang: 'en' | 'es';
+}
+const { lang } = Astro.props;
+const t = (en: string, es: string) => (lang === 'es' ? es : en);
+
+const emotions = [
+	{ label: t('Neutral', 'Neutral'), color: '#A1A6B2' },
+	{ label: t('Joy', 'Alegría'), color: '#FFC857' },
+	{ label: t('Sadness', 'Tristeza'), color: '#6C5CFF' },
+	{ label: t('Anger', 'Enojo'), color: '#FF6B6B' },
+	{ label: t('Fear', 'Miedo'), color: '#7AE582' },
+	{ label: t('Surprise', 'Sorpresa'), color: '#00D1FF' },
+	{ label: t('Disgust', 'Disgusto'), color: '#9B7AFF' },
+	{ label: t('Trust', 'Confianza'), color: '#FF9560' },
+];
+
+const microColors = [
+	'#6C5CFF', '#00D1FF', '#7AE582', '#FFC857', '#FF6B6B', '#9B7AFF',
+	'#00D1FF', '#7AE582', '#FFC857', '#FF6B6B', '#6C5CFF',
+	'#9B7AFF', '#00D1FF', '#7AE582', '#FFC857', '#FF6B6B',
+	'#6C5CFF', '#9B7AFF', '#00D1FF', '#7AE582', '#FFC857', '#FF6B6B',
+];
+---
+
+<section class="border-t border-white/[0.06] py-16 md:py-20">
+	<div class="mx-auto max-w-[1280px] px-6">
+		<div class="mb-10 max-w-2xl">
+			<div class="text-xs font-semibold tracking-wider text-ad-cyan uppercase">{t('Expression system', 'Sistema de expresiones')}</div>
+			<h2 class="mt-2 text-3xl font-bold tracking-tight md:text-4xl">{t('8 emotions × 22 microexpressions', '8 emociones × 22 microexpresiones')}</h2>
+			<p class="mt-3 text-sm leading-relaxed text-ad-fog">
+				{t(
+					'Emotions set the baseline pose. Microexpressions layer brief reactions over it — a wince, a smirk, a brow flash — without interrupting speech.',
+					'Las emociones fijan la pose base. Las microexpresiones añaden reacciones breves sobre ella — una mueca, una sonrisa, una ceja — sin cortar el habla.'
+				)}
+			</p>
+		</div>
+
+		<div class="mb-8 ad-card p-6">
+			<div class="mb-4 text-[11px] font-semibold tracking-wider text-ad-fog uppercase">{t('Emotions', 'Emociones')}</div>
+			<div class="flex flex-wrap gap-3">
+				{emotions.map((e) => (
+					<div class="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.02] px-3 py-1.5">
+						<span class="size-2 rounded-full" style={`background:${e.color}`}></span>
+						<span class="text-sm font-medium text-white">{e.label}</span>
+					</div>
+				))}
+			</div>
+		</div>
+
+		<div class="ad-card p-6">
+			<div class="mb-4 flex items-center justify-between">
+				<div class="text-[11px] font-semibold tracking-wider text-ad-fog uppercase">{t('Microexpressions', 'Microexpresiones')}</div>
+				<div class="text-xs text-ad-fog">{t('22 layered face curves', '22 curvas faciales en capas')}</div>
+			</div>
+			<div class="flex flex-wrap items-center gap-2.5">
+				{microColors.map((c) => (
+					<span class="size-3.5 rounded-full ring-1 ring-white/10" style={`background:${c};box-shadow:0 0 12px ${c}66`}></span>
+				))}
+			</div>
+		</div>
+	</div>
+</section>

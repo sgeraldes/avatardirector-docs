@@ -1,0 +1,60 @@
+---
+interface Props {
+	lang: 'en' | 'es';
+}
+const { lang } = Astro.props;
+const t = (en: string, es: string) => (lang === 'es' ? es : en);
+
+const cards = [
+	{
+		eyebrow: t('Lip-sync', 'Lip-sync'),
+		title: t('On-device ML lip-sync', 'Lip-sync con ML en el dispositivo'),
+		desc: t(
+			'CPU ONNX models via UE NNE, with mood and standard variants. Tunable chunk size and thread counts at runtime.',
+			'Modelos ONNX en CPU vía UE NNE, con variantes mood y standard. Tamaño de chunk e hilos ajustables en runtime.'
+		),
+	},
+	{
+		eyebrow: t('Expression', 'Expresión'),
+		title: t('Microexpressions on top of emotions', 'Microexpresiones sobre emociones'),
+		desc: t(
+			'Layered face curves drive subtle reactions — winces, smirks, brow flashes — without disturbing speech animation.',
+			'Curvas faciales en capas para reacciones sutiles — muecas, sonrisas, cejas — sin alterar la animación de la voz.'
+		),
+	},
+	{
+		eyebrow: t('Gaze', 'Mirada'),
+		title: t('Autonomous gaze FSM', 'FSM de mirada autónoma'),
+		desc: t(
+			'Idle, conversational, and explicit look-at modes. Eye aim flows post-RigLogic so the head feels alive between commands.',
+			'Modos idle, conversacional y look-at explícito. La mirada se aplica post-RigLogic para que la cabeza siga viva entre comandos.'
+		),
+	},
+	{
+		eyebrow: t('Backend', 'Backend'),
+		title: t('Streaming config without restarts', 'Configuración en streaming sin reinicios'),
+		desc: t(
+			'Adjust lip-sync model, optimization tier, idle behaviors, and the debug overlay live, mid-session, over JSON commands.',
+			'Cambia el modelo de lip-sync, el tier de optimización, los comportamientos idle y el panel de depuración en vivo, vía comandos JSON.'
+		),
+	},
+];
+---
+
+<section class="border-t border-white/[0.06] py-16 md:py-20">
+	<div class="mx-auto max-w-[1280px] px-6">
+		<div class="mb-10 max-w-2xl">
+			<div class="text-xs font-semibold tracking-wider text-ad-cyan uppercase">{t('What it does', 'Qué hace')}</div>
+			<h2 class="mt-2 text-3xl font-bold tracking-tight md:text-4xl">{t('Built for performance. Designed for expressiveness.', 'Construido para el rendimiento. Diseñado para la expresividad.')}</h2>
+		</div>
+		<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+			{cards.map((c) => (
+				<article class="ad-card flex flex-col gap-3 p-6">
+					<div class="text-xs font-semibold tracking-wider text-ad-fog uppercase">{c.eyebrow}</div>
+					<h3 class="text-lg font-semibold leading-tight text-white">{c.title}</h3>
+					<p class="text-sm leading-relaxed text-ad-fog">{c.desc}</p>
+				</article>
+			))}
+		</div>
+	</div>
+</section>

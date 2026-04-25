@@ -1,0 +1,76 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	lang: 'en' | 'es';
+	title: string;
+	description: string;
+	currentPath: string;
+}
+
+const { lang, title, description, currentPath } = Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const enHref = `${base}/`;
+const esHref = `${base}/es`;
+const docsHref = lang === 'es' ? `${base}/es/overview` : `${base}/overview`;
+const githubHref = 'https://github.com/sgeraldes/avatardirector-docs';
+const altLangHref = lang === 'es' ? enHref : esHref;
+const altLangLabel = lang === 'es' ? 'EN' : 'ES';
+
+const t = (en: string, es: string) => (lang === 'es' ? es : en);
+---
+
+<!doctype html>
+<html lang={lang} data-theme="dark">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+	</head>
+	<body class="bg-ad-void text-white">
+		<header class="sticky top-0 z-50 border-b border-white/[0.06] bg-ad-void/80 backdrop-blur-md">
+			<div class="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-4">
+				<a href={lang === 'es' ? esHref : enHref} class="flex items-center gap-3" aria-label="AvatarDirector">
+					<img src={`${base}/favicon.svg`} alt="" width="32" height="32" />
+					<span class="text-base font-semibold tracking-tight">
+						Avatar<span class="ad-grad-text">Director</span>
+					</span>
+				</a>
+				<nav class="hidden items-center gap-6 text-sm text-ad-fog md:flex">
+					<a href={docsHref} class="transition-colors hover:text-white">{t('Docs', 'Docs')}</a>
+					<a href={`${docsHref.replace('/overview', '/protocol/tcp')}`} class="transition-colors hover:text-white">{t('Protocol', 'Protocolo')}</a>
+					<a href={`${docsHref.replace('/overview', '/releases/ls009')}`} class="transition-colors hover:text-white">{t('Releases', 'Versiones')}</a>
+					<a href={githubHref} class="transition-colors hover:text-white">GitHub</a>
+				</nav>
+				<div class="flex items-center gap-3">
+					<a href={altLangHref} class="ad-pill" aria-label={t('Switch language', 'Cambiar idioma')}>
+						<span class="text-xs font-semibold tracking-wider text-white">{altLangLabel}</span>
+					</a>
+					<a href={docsHref} class="ad-btn-primary text-sm">{t('Read the docs', 'Ver la documentación')}</a>
+				</div>
+			</div>
+		</header>
+
+		<slot />
+
+		<footer class="border-t border-white/[0.06] py-10">
+			<div class="mx-auto flex max-w-[1280px] flex-col items-start justify-between gap-4 px-6 text-sm text-ad-fog md:flex-row md:items-center">
+				<div class="flex items-center gap-3">
+					<img src={`${base}/favicon.svg`} alt="" width="20" height="20" />
+					<span>AvatarDirector / {t('Unreal Engine 5.7 plugin', 'plugin para Unreal Engine 5.7')}</span>
+				</div>
+				<div class="flex items-center gap-5">
+					<a href={docsHref} class="hover:text-white">{t('Documentation', 'Documentación')}</a>
+					<a href={githubHref} class="hover:text-white">GitHub</a>
+					<a href={altLangHref} class="hover:text-white">{altLangLabel}</a>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>

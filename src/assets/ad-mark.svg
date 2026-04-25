@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 56" role="img" aria-label="AvatarDirector">
+  <defs>
+    <linearGradient id="ad-mark-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6C5CFF"/>
+      <stop offset="100%" stop-color="#00D1FF"/>
+    </linearGradient>
+  </defs>
+  <!-- A glyph: angular monogram with internal cutout -->
+  <path
+    d="M2 54 L26 2 L50 54 L38 54 L33 42 L19 42 L14 54 Z M22 32 L30 32 L26 21 Z"
+    fill="url(#ad-mark-grad)"
+    fill-rule="evenodd"/>
+  <!-- D glyph: rounded right edge, square left edge, donut cutout -->
+  <path
+    d="M62 2 L86 2 A26 26 0 0 1 86 54 L62 54 Z M74 14 L84 14 A14 14 0 0 1 84 42 L74 42 Z"
+    fill="url(#ad-mark-grad)"
+    fill-rule="evenodd"/>
+</svg>

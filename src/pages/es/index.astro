@@ -1,0 +1,23 @@
+---
+import LandingLayout from '../../layouts/LandingLayout.astro';
+import Hero from '../../components/Hero.astro';
+import HowItWorks from '../../components/HowItWorks.astro';
+import FeatureGrid from '../../components/FeatureGrid.astro';
+import ExpressionSystem from '../../components/ExpressionSystem.astro';
+import BodyGestures from '../../components/BodyGestures.astro';
+import DesignSystemStrip from '../../components/DesignSystemStrip.astro';
+---
+
+<LandingLayout
+	lang="es"
+	title="AvatarDirector — Control de avatares en tiempo real para Unreal Engine 5.7"
+	description="AvatarDirector controla un avatar MetaHuman en tiempo real desde un backend externo, recibiendo comandos y transmitiendo audio PCM por un único socket TCP."
+	currentPath="/es/"
+>
+	<Hero lang="es" />
+	<FeatureGrid lang="es" />
+	<HowItWorks lang="es" />
+	<ExpressionSystem lang="es" />
+	<BodyGestures lang="es" />
+	<DesignSystemStrip lang="es" />
+</LandingLayout>
