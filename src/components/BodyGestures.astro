@@ -5,64 +5,91 @@ interface Props {
 const { lang } = Astro.props;
 const t = (en: string, es: string) => (lang === 'es' ? es : en);
 
-const gestures = [
-	'greet',
-	'affirm',
-	'deny',
-	'point',
-	'shrug',
-	'open_arms',
-	'cheer',
-	'wave',
-	'thinking_pose',
-	'count_one',
-	'count_two',
-	'invite',
+const gestures: Array<[string, string, string]> = [
+	['greet',         t('Wave + slight bow',           'Saludo + leve reverencia'), '1.4s'],
+	['affirm',        t('Single nod',                  'Asentimiento corto'),       '0.8s'],
+	['deny',          t('Shake head, soft frown',      'Niega con leve ceño'),      '1.0s'],
+	['point',         t('Index point + gaze track',    'Señalar + seguimiento'),    '1.2s'],
+	['shrug',         t('Shoulders + palms-up',        'Hombros + palmas arriba'),  '1.6s'],
+	['cheer',         t('Both arms raised',            'Ambos brazos arriba'),      '2.2s'],
+	['wave',          t('Hand wave',                   'Saludo con la mano'),       '1.8s'],
+	['thinking_pose', t('Hand to chin, gaze drift',    'Mano al mentón, mirada deriva'), '3.0s'],
 ];
 ---
 
-<section class="border-t border-white/[0.06] py-16 md:py-20">
+<section id="gestures" class="border-t border-white/[0.06] py-24" data-bodygestures>
 	<div class="mx-auto max-w-[1280px] px-6">
-		<div class="mb-10 max-w-3xl">
-			<div class="text-xs font-semibold tracking-wider text-ad-cyan uppercase">{t('Body gestures', 'Gestos corporales')}</div>
-			<h2 class="mt-2 text-3xl font-bold tracking-tight md:text-4xl">{t('Full-body montages, not just talking heads.', 'Montages de cuerpo completo, no sólo cabezas parlantes.')}</h2>
-			<p class="mt-4 text-base leading-relaxed text-ad-fog">
-				{t(
-					'Gesture montages run on the body mesh, sequenced through the same state machine as speech and emotion. Triggered with one JSON command — name it and send it.',
-					'Los montages de gestos corren en la malla del cuerpo, secuenciados por la misma máquina de estados que el habla y la emoción. Se disparan con un solo comando JSON — nómbralo y mandálo.'
-				)}
-			</p>
-		</div>
+		<div class="text-[11px] font-semibold tracking-[0.12em] text-ad-cyan uppercase">{t('Body gestures', 'Gestos corporales')}</div>
+		<h2 class="ad-display mt-3 mb-3 text-white" style="font-size:36px;font-weight:700;">
+			{t('Full-body montages,', 'Montages de cuerpo completo,')} <span class="ad-grad-text">{t('not just talking heads.', 'no sólo cabezas parlantes.')}</span>
+		</h2>
+		<p class="m-0 mb-10 max-w-[640px] text-base leading-[1.65] text-ad-fog">
+			{t(
+				'Trigger named gestures by string. Sequence them, blend with talking-head animation, and override gaze targets mid-performance.',
+				'Dispará gestos por nombre. Secuenciálos, mezclá con la animación de habla y sobrescribí targets de mirada en plena actuación.'
+			)}
+		</p>
 
-		<div class="grid gap-4 lg:grid-cols-[1.2fr_1fr]">
-			<div class="ad-card p-6">
-				<div class="mb-4 flex items-center justify-between">
-					<div class="text-[11px] font-semibold tracking-wider text-ad-fog uppercase">{t('Available gestures', 'Gestos disponibles')}</div>
-					<div class="text-xs text-ad-fog">{t('extend at runtime via montage assets', 'extensible en runtime con montages')}</div>
+		<div class="grid gap-7 lg:grid-cols-[1.4fr_1fr]">
+			<!-- Code sample -->
+			<div class="ad-card overflow-hidden">
+				<div class="flex items-center justify-between border-b border-white/[0.06] px-5 py-3.5">
+					<div class="flex gap-2">
+						<span class="size-2.5 rounded-full" style="background:#FF6B6B;"></span>
+						<span class="size-2.5 rounded-full" style="background:#FFC857;"></span>
+						<span class="size-2.5 rounded-full" style="background:#7AE582;"></span>
+					</div>
+					<span class="font-mono text-[11px] text-ad-fog">cmd_gesture.json · Type 1</span>
 				</div>
-				<div class="flex flex-wrap gap-2">
-					{gestures.map((g) => (
-						<code class="rounded-md border border-white/10 bg-white/[0.03] px-2.5 py-1 font-mono text-sm text-white transition-colors hover:border-ad-cyan/50 hover:text-ad-cyan">{g}</code>
-					))}
-				</div>
+				<pre class="m-0 overflow-auto p-5.5 font-mono leading-[1.7] text-white/85" style="font-size:13px;background:transparent;border:none;"><span style="color:var(--ad-fog)">{'{\n  '}</span><span style="color:var(--ad-cyan)">"type"</span><span style="color:var(--ad-fog)">{'    : '}</span><span style="color:var(--ad-mint)">"gesture"</span><span style="color:var(--ad-fog)">{',\n  '}</span><span style="color:var(--ad-cyan)">"name"</span><span style="color:var(--ad-fog)">{'    : '}</span><span style="color:var(--ad-mint)">"<span data-gesture-name>greet</span>"</span><span style="color:var(--ad-fog)">{',\n  '}</span><span style="color:var(--ad-cyan)">"blend"</span><span style="color:var(--ad-fog)">{'   : '}</span><span style="color:var(--ad-amber)">0.85</span><span style="color:var(--ad-fog)">{',\n  '}</span><span style="color:var(--ad-cyan)">"gaze"</span><span style="color:var(--ad-fog)">{'    : '}</span><span style="color:var(--ad-mint)">"camera"</span><span style="color:var(--ad-fog)">{',\n  '}</span><span style="color:var(--ad-cyan)">"queue"</span><span style="color:var(--ad-fog)">{'   : '}</span><span style="color:var(--ad-amber)">true</span><span style="color:var(--ad-fog)">{'\n}'}</span></pre>
 			</div>
 
-			<div class="ad-card overflow-hidden p-0">
-				<div class="flex items-center justify-between border-b border-white/[0.06] px-5 py-3">
-					<div class="text-[11px] font-semibold tracking-wider text-ad-fog uppercase">{t('Trigger any gesture', 'Disparar cualquier gesto')}</div>
-					<span class="ad-pill is-info"><span class="dot"></span>JSON</span>
-				</div>
-				<pre class="overflow-x-auto p-5 text-sm leading-relaxed"><code class="font-mono text-ad-fog"><span class="text-ad-fog">{'{ '}</span><span class="text-ad-cyan">"type"</span><span class="text-ad-fog">: </span><span class="text-ad-mint">"anim_gesture"</span><span class="text-ad-fog">, </span><span class="text-ad-cyan">"name"</span><span class="text-ad-fog">: </span><span class="text-ad-mint">"greet"</span><span class="text-ad-fog">{' }'}</span></code></pre>
-				<div class="border-t border-white/[0.06] px-5 py-3 text-xs leading-relaxed text-ad-fog">
-					{t(
-						'Replace ',
-						'Reemplazá '
-					)}<code class="rounded bg-white/[0.05] px-1 font-mono text-ad-cyan">"greet"</code>{t(
-						' with any name from the list. Sent over the same TCP socket as audio and config.',
-						' por cualquier nombre de la lista. Va por el mismo socket TCP que el audio y la config.'
-					)}
-				</div>
+			<!-- Gesture list -->
+			<div class="ad-card overflow-hidden p-2">
+				{gestures.map(([name, desc, dur], i) => (
+					<button type="button"
+					        class="flex w-full items-center justify-between border-0 px-3.5 py-3 text-left transition-colors"
+					        data-gesture-btn={name}
+					        style={`background:transparent;cursor:pointer;${i < gestures.length - 1 ? 'border-bottom:1px solid var(--ad-hairline);' : ''}`}>
+						<div class="flex items-center gap-3.5">
+							<code class="rounded-md border px-2.5 py-[3px] font-mono text-xs text-white transition-all"
+							      data-gesture-chip
+							      style="background:var(--bg-elev-2);border-color:var(--ad-hairline-white);">{name}</code>
+							<span class="text-[13px] text-ad-fog">{desc}</span>
+						</div>
+						<span class="font-mono text-[11px] text-ad-fog">{dur}</span>
+					</button>
+				))}
 			</div>
 		</div>
 	</div>
 </section>
+
+<script is:inline>
+	(function () {
+		const root = document.querySelector('[data-bodygestures]');
+		if (!root) return;
+		const nameEl = root.querySelector('[data-gesture-name]');
+		const buttons = root.querySelectorAll('[data-gesture-btn]');
+		buttons.forEach((b) => {
+			const name = b.getAttribute('data-gesture-btn');
+			const chip = b.querySelector('[data-gesture-chip]');
+			b.addEventListener('mouseenter', () => {
+				if (nameEl) nameEl.textContent = name;
+				b.style.background = 'var(--bg-elev-3, rgba(255,255,255,0.06))';
+				if (chip) {
+					chip.style.borderColor = 'rgba(0,209,255,0.4)';
+					chip.style.color = 'var(--ad-cyan)';
+				}
+			});
+			b.addEventListener('mouseleave', () => {
+				if (nameEl) nameEl.textContent = 'greet';
+				b.style.background = 'transparent';
+				if (chip) {
+					chip.style.borderColor = 'var(--ad-hairline-white)';
+					chip.style.color = '#fff';
+				}
+			});
+		});
+	})();
+</script>

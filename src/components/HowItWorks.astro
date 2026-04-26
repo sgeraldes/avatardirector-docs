@@ -4,56 +4,325 @@ interface Props {
 }
 const { lang } = Astro.props;
 const t = (en: string, es: string) => (lang === 'es' ? es : en);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const steps = [
-	{
-		label: t('External backend', 'Backend externo'),
-		desc: t('Your TTS, conversation engine, or scripted controller.', 'Tu motor de TTS, conversación o controlador scripteado.'),
-		iconPath: 'M4 6h16v12H4Zm4 4h.01M8 14h.01M12 10h6M12 14h6',
-	},
-	{
-		label: t('TCP socket', 'Socket TCP'),
-		desc: t('PCM audio + JSON commands on port 4500.', 'Audio PCM + comandos JSON en el puerto 4500.'),
-		iconPath: 'M3 12h2l3-9 4 18 3-12 2 6h4',
-	},
-	{
-		label: t('AvatarDirector plugin', 'Plugin AvatarDirector'),
-		desc: t('Single-threaded ingress, game-thread fan-out, state machine.', 'Ingreso de un solo hilo, fan-out en game thread, máquina de estados.'),
-		iconPath: 'M12 2 2 7l10 5 10-5-10-5Zm-10 12 10 5 10-5M2 17l10 5 10-5',
-	},
-	{
-		label: t('MetaHuman avatar', 'Avatar MetaHuman'),
-		desc: t('Lip-sync, emotion, gesture and gaze applied in real time.', 'Lip-sync, emoción, gestos y mirada aplicados en tiempo real.'),
-		iconPath: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 9v-1a7 7 0 0 1 14 0v1',
-	},
+const captions = [
+	{ n: '01', color: 'cyan',   title: t('Audio + commands',          'Audio + comandos'),
+	  body:  t('Your backend speaks TCP. Send PCM and JSON over a single socket — no SDK lock-in.',
+	            'Tu backend habla TCP. Enviá PCM y JSON por un único socket — sin lock-in de SDK.') },
+	{ n: '02', color: 'violet', title: t('Decode → route → blend',    'Decodificar → rutear → mezclar'),
+	  body:  t('The plugin parses, dispatches to lip-sync or animator on the game thread, and blends safely.',
+	            'El plugin parsea, despacha al lip-sync o al animator en el game thread, y mezcla con seguridad.') },
+	{ n: '03', color: 'mint',   title: t('MetaHuman performs',        'El MetaHuman actúa'),
+	  body:  t('Face + body update at 30 FPS, in-engine. Drop-in for Unreal projects, no Blueprint edits.',
+	            'Cara + cuerpo a 30 FPS, dentro del motor. Drop-in en proyectos Unreal, sin tocar Blueprints.') },
 ];
+
+const trust = [
+	{ k: 'UE 5.3+',         v: t('Tested on 5.3 / 5.4 / 5.5', 'Probado en 5.3 / 5.4 / 5.5') },
+	{ k: 'MetaHuman',       v: t('Face + body, all rigs',     'Cara + cuerpo, todos los rigs') },
+	{ k: t('Cross-platform', 'Multiplataforma'), v: t('Win · Mac · Linux client', 'Cliente Win · Mac · Linux') },
+	{ k: t('MIT license',   'Licencia MIT'), v: t('Commercial-friendly',         'Apta para uso comercial') },
+];
+
+// Static bar heights for the waveform (animation handled in CSS)
+const wave = Array.from({ length: 32 }, (_, i) => 8 + Math.abs(Math.sin(i * 0.45) * Math.cos(i * 0.32)) * 22);
 ---
 
-<section class="border-t border-white/[0.06] py-16 md:py-20">
-	<div class="mx-auto max-w-[1280px] px-6">
-		<div class="mb-12 max-w-3xl">
-			<div class="text-xs font-semibold tracking-wider text-ad-cyan uppercase">{t('How it works', 'Cómo funciona')}</div>
-			<h2 class="mt-2 text-3xl font-bold tracking-tight md:text-4xl">{t('Backend speaks. Avatar performs.', 'El backend habla. El avatar actúa.')}</h2>
-			<p class="mt-4 text-base leading-relaxed text-ad-fog">
-				{t(
-					'One TCP connection carries everything: PCM audio for the mouth, JSON for everything else. The plugin marshals every dispatch onto the game thread before touching animation state.',
-					'Una sola conexión TCP lo lleva todo: audio PCM para la boca, JSON para el resto. El plugin lleva cada despacho al game thread antes de tocar el estado de animación.'
-				)}
-			</p>
+<section class="relative overflow-hidden border-t border-white/[0.06]" style="padding:120px 0 100px;">
+	<!-- Ambient blurs -->
+	<div aria-hidden class="pointer-events-none absolute inset-0 z-0">
+		<div class="absolute" style="top:15%;left:-10%;width:460px;height:460px;background:radial-gradient(circle, rgba(0,209,255,0.10), transparent 65%);filter:blur(60px);"></div>
+		<div class="absolute" style="bottom:5%;right:-6%;width:520px;height:520px;background:radial-gradient(circle, rgba(108,92,255,0.12), transparent 65%);filter:blur(70px);"></div>
+	</div>
+
+	<div class="relative z-10 mx-auto max-w-[1280px] px-6">
+		<!-- Section header -->
+		<div class="mb-16 grid items-end gap-10" style="grid-template-columns:1fr auto;">
+			<div>
+				<div class="text-[11px] font-semibold tracking-[0.12em] text-ad-cyan uppercase">{t('How it works', 'Cómo funciona')}</div>
+				<h2 class="ad-display mt-3.5 mb-4 max-w-[800px] text-white" style="font-size:56px;line-height:1.05;letter-spacing:-0.02em;font-weight:700;">
+					{t('One socket.', 'Un socket.')} <span class="ad-grad-text">{t('Two frame types.', 'Dos tipos de frame.')}</span><br />
+					{t('Zero engine code.', 'Cero código de motor.')}
+				</h2>
+				<p class="m-0 max-w-[620px] text-lg leading-[1.6] text-ad-fog">
+					{t(
+						'Stream audio in. Stream commands in. The avatar performs in real time — no Blueprint plumbing, no rebuilds, no per-character integration work.',
+						'Streameá audio. Streameá comandos. El avatar actúa en tiempo real — sin Blueprints, sin recompilar, sin integración por personaje.'
+					)}
+				</p>
+			</div>
+			<div class="flex flex-col items-end gap-2">
+				<div class="font-mono text-[11px] tracking-[0.1em] text-ad-fog">TCP · PORT 4500</div>
+				<div class="ad-display text-ad-cyan" style="font-size:38px;font-weight:700;">~30ms</div>
+				<div class="font-mono text-[11px] text-ad-fog">{t('p50 voice → mouth', 'p50 voz → boca')}</div>
+			</div>
 		</div>
-		<ol class="grid gap-3 md:grid-cols-4">
-			{steps.map((s, i) => (
-				<li class="ad-card flex flex-col gap-3 p-5">
-					<div class="flex items-center gap-3">
-						<div class="flex size-10 items-center justify-center rounded-lg ad-grad-bg text-white">
-							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d={s.iconPath}/></svg>
+
+		<!-- The animated 3-column diagram -->
+		<div class="ad-card relative overflow-hidden p-10" data-howitworks data-beat="0">
+			<div class="grid items-stretch" style="grid-template-columns:1fr 80px 1.1fr 80px 1fr;min-height:380px;">
+
+				<!-- Column 1: Backend -->
+				<div class="flex flex-col gap-4">
+					<div class="text-[11px] font-semibold tracking-[0.14em] text-ad-fog uppercase">{t('Your backend', 'Tu backend')}</div>
+
+					<div class="rounded-xl border p-4 transition-all" data-card="audio"
+					     style="border-color:var(--ad-hairline);background:var(--ad-void);transition:all 0.4s ease;">
+						<div class="mb-2.5 flex items-center justify-between">
+							<div class="flex items-center gap-2">
+								<span data-card-dot class="size-1.5 rounded-full" style="background:var(--ad-cyan);"></span>
+								<span class="font-mono text-[11px] tracking-[0.06em] text-ad-cyan">TYPE 0 · AUDIO</span>
+							</div>
+							<span class="font-mono text-[10px] text-ad-fog">2880 B</span>
 						</div>
-						<span class="font-mono text-xs font-semibold tracking-wider text-ad-fog">{`0${i + 1}`}</span>
+						<svg viewBox="0 0 200 36" class="block h-9 w-full" data-wave>
+							{wave.map((h, i) => (
+								<rect x={i * 6 + 2} y={(36 - h) / 2} width="3" height={h} rx="1.5"
+								      fill="var(--ad-cyan)" opacity="0.45" />
+							))}
+						</svg>
+						<div class="mt-2 font-mono text-[10px] tracking-[0.04em] text-ad-fog">48 kHz · 16-bit · mono · 30 ms chunk</div>
 					</div>
-					<h3 class="text-base font-semibold text-white">{s.label}</h3>
-					<p class="text-sm leading-relaxed text-ad-fog">{s.desc}</p>
-				</li>
+
+					<div class="rounded-xl border p-4 transition-all" data-card="json"
+					     style="border-color:var(--ad-hairline);background:var(--ad-void);transition:all 0.4s ease;">
+						<div class="mb-2.5 flex items-center justify-between">
+							<div class="flex items-center gap-2">
+								<span data-card-dot class="size-1.5 rounded-full" style="background:var(--ad-violet);"></span>
+								<span class="font-mono text-[11px] tracking-[0.06em] text-ad-violet">TYPE 1 · JSON</span>
+							</div>
+							<span class="font-mono text-[10px] text-ad-fog">92 B</span>
+						</div>
+						<pre class="m-0 font-mono leading-[1.55] text-ad-fog" style="font-size:11px;white-space:pre;color:var(--fg-2);"><span style="color:var(--ad-fog)">{'{ '}</span><span style="color:var(--ad-cyan)">"type"</span><span style="color:var(--ad-fog)">: </span><span style="color:var(--ad-mint)">"emotion"</span><span style="color:var(--ad-fog)">,
+  </span><span style="color:var(--ad-cyan)">"name"</span><span style="color:var(--ad-fog)">: </span><span style="color:var(--ad-mint)">"joy"</span><span style="color:var(--ad-fog)">,
+  </span><span style="color:var(--ad-cyan)">"intensity"</span><span style="color:var(--ad-fog)">: </span><span style="color:var(--ad-amber)">0.78</span><span style="color:var(--ad-fog)"> }</span></pre>
+					</div>
+				</div>
+
+				<!-- Connector 1 -->
+				<div class="relative flex flex-col items-center justify-center px-2" data-connector="1">
+					<div class="hiw-line h-px w-full" style="background:var(--ad-hairline);"></div>
+					<div class="hiw-dot pointer-events-none absolute top-1/2 size-1.5 -translate-y-1/2 rounded-full"></div>
+					<svg width="14" height="10" class="absolute -right-[1px] top-1/2 -translate-y-1/2"><path class="hiw-arrow" d="M 0 0 L 12 5 L 0 10" fill="none" stroke="var(--ad-hairline)" stroke-width="1.5"/></svg>
+				</div>
+
+				<!-- Column 2: Plugin -->
+				<div class="flex flex-col">
+					<div class="mb-4 text-[11px] font-semibold tracking-[0.14em] text-ad-fog uppercase">{t('AvatarDirector plugin', 'Plugin AvatarDirector')}</div>
+					<div class="relative flex flex-1 flex-col justify-between overflow-hidden rounded-[14px] border border-white/[0.10] p-5"
+					     style="background:var(--ad-void);">
+						<svg aria-hidden viewBox="0 0 200 280" class="absolute inset-0 h-full w-full" style="opacity:0.18;">
+							<path d="M 0 60 H 80 V 120 H 200" stroke="var(--ad-cyan)"   stroke-width="1" fill="none"/>
+							<path d="M 0 180 H 60 V 140 H 200" stroke="var(--ad-violet)" stroke-width="1" fill="none"/>
+							<circle cx="80" cy="60"  r="2" fill="var(--ad-cyan)"/>
+							<circle cx="80" cy="120" r="2" fill="var(--ad-cyan)"/>
+							<circle cx="60" cy="180" r="2" fill="var(--ad-violet)"/>
+							<circle cx="60" cy="140" r="2" fill="var(--ad-violet)"/>
+						</svg>
+						<div class="relative z-10">
+							<div class="mb-1.5 font-mono text-[10px] tracking-[0.08em] text-ad-fog">STAGE 1 · DECODE HEADER</div>
+							<div class="font-mono text-[13px] text-white">{t('5-byte read · type + LE length', 'Lectura de 5 bytes · type + length LE')}</div>
+						</div>
+						<div class="relative z-10">
+							<div class="mb-1.5 font-mono text-[10px] tracking-[0.08em] text-ad-fog">STAGE 2 · ROUTE</div>
+							<div class="grid grid-cols-2 gap-2">
+								<div class="hiw-pill rounded-lg border px-2.5 py-2 text-center font-mono text-[11px] transition-all" data-pill="cyan"
+								     style="border-color:var(--ad-hairline);background:transparent;color:var(--ad-fog);">Lip-sync</div>
+								<div class="hiw-pill rounded-lg border px-2.5 py-2 text-center font-mono text-[11px] transition-all" data-pill="violet"
+								     style="border-color:var(--ad-hairline);background:transparent;color:var(--ad-fog);">Animator</div>
+							</div>
+						</div>
+						<div class="relative z-10">
+							<div class="mb-1.5 font-mono text-[10px] tracking-[0.08em] text-ad-fog">STAGE 3 · DISPATCH @ 30 FPS</div>
+							<div class="hiw-frames flex h-7 items-end gap-1">
+								{Array.from({ length: 30 }).map((_, i) => (
+									<span class="block flex-1 rounded-[1px]" data-frame={i}
+									      style={`height:${6 + (i % 10) * 2}px;background:var(--ad-hairline-light);transition:all 0.2s ease;`}></span>
+								))}
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Connector 2 -->
+				<div class="relative flex flex-col items-center justify-center px-2" data-connector="2">
+					<div class="hiw-line h-px w-full" style="background:var(--ad-hairline);"></div>
+					<div class="hiw-dot pointer-events-none absolute top-1/2 size-1.5 -translate-y-1/2 rounded-full"></div>
+					<svg width="14" height="10" class="absolute -right-[1px] top-1/2 -translate-y-1/2"><path class="hiw-arrow" d="M 0 0 L 12 5 L 0 10" fill="none" stroke="var(--ad-hairline)" stroke-width="1.5"/></svg>
+				</div>
+
+				<!-- Column 3: Avatar (live video) -->
+				<div class="flex flex-col">
+					<div class="mb-4 text-[11px] font-semibold tracking-[0.14em] text-ad-fog uppercase">{t('MetaHuman avatar', 'Avatar MetaHuman')}</div>
+					<div class="relative flex flex-1 flex-col justify-between overflow-hidden rounded-[14px] border border-white/[0.10] p-4.5"
+					     style="background:radial-gradient(120% 100% at 50% 0%, rgba(108,92,255,0.18), rgba(0,209,255,0.08) 40%, #0B0E16 80%);">
+						<video src={`${base}/avatar/avatar-barista.mp4`}
+						       autoplay loop muted playsinline
+						       class="absolute inset-0 h-full w-full" data-avatar-video
+						       style="object-fit:cover;object-position:center 22%;filter:brightness(0.95);transition:filter 0.5s ease;"></video>
+						<div aria-hidden class="pointer-events-none absolute inset-0"
+						     style="background:linear-gradient(180deg, rgba(11,14,22,0.55) 0%, rgba(11,14,22,0) 28%, rgba(11,14,22,0) 60%, rgba(11,14,22,0.85) 100%);"></div>
+						<div aria-hidden class="hiw-color-wash pointer-events-none absolute inset-0" style="mix-blend-mode:screen;transition:background 0.5s ease;"></div>
+
+						<div class="relative z-10 flex justify-end">
+							<span class="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-ad-void/80 px-2.5 py-1 font-mono text-[10px] text-ad-mint backdrop-blur-md">
+								<span class="size-[5px] rounded-full bg-ad-mint"></span> LIVE · 30 fps
+							</span>
+						</div>
+
+						<div class="relative z-10">
+							<div class="rounded-lg border border-white/10 bg-ad-void/[0.78] px-3 py-2.5 font-mono text-[11px] text-white/85 backdrop-blur-md">
+								<div class="flex justify-between">
+									<span>VISEME</span>
+									<span data-hud-viseme style="color:var(--ad-fog);">—</span>
+								</div>
+								<div class="mt-1 flex justify-between">
+									<span>EMOTION</span>
+									<span data-hud-emotion style="color:var(--ad-fog);">—</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Caption strip -->
+			<div class="mt-6 grid border-t border-white/[0.06] pt-5" style="grid-template-columns:1fr 80px 1.1fr 80px 1fr;">
+				{captions.map((c, idx) => (
+					<>
+						{idx > 0 && <div></div>}
+						<div>
+							<div class="mb-1.5 flex items-baseline gap-2.5">
+								<span class="ad-display text-[13px] font-bold" style={`color:var(--ad-${c.color});`}>{c.n}</span>
+								<span class="text-sm font-semibold text-white">{c.title}</span>
+							</div>
+							<div class="text-[13px] leading-[1.55] text-ad-fog">{c.body}</div>
+						</div>
+					</>
+				))}
+			</div>
+		</div>
+
+		<!-- Trust bar -->
+		<div class="mt-7 grid grid-cols-2 gap-4 md:grid-cols-4">
+			{trust.map((tt) => (
+				<div class="rounded-xl border border-white/[0.06] p-4.5" style="background:rgba(255,255,255,0.02);">
+					<div class="ad-display text-base font-semibold text-white">{tt.k}</div>
+					<div class="mt-1 text-xs text-ad-fog">{tt.v}</div>
+				</div>
 			))}
-		</ol>
+		</div>
 	</div>
 </section>
+
+<!-- Per-beat visuals: cards highlight, waveform brightens, plugin pills light up, avatar wash, HUD updates -->
+<style>
+	[data-howitworks][data-beat="0"] [data-card="audio"] {
+		border-color: var(--ad-cyan) !important;
+		background: rgba(0,209,255,0.08) !important;
+		box-shadow: 0 0 0 4px rgba(0,209,255,0.10);
+	}
+	[data-howitworks][data-beat="0"] [data-card="audio"] [data-card-dot] {
+		box-shadow: 0 0 12px var(--ad-cyan);
+	}
+	[data-howitworks][data-beat="0"] [data-card="audio"] [data-wave] rect { opacity: 0.95; }
+
+	[data-howitworks][data-beat="2"] [data-card="json"] {
+		border-color: var(--ad-violet) !important;
+		background: rgba(108,92,255,0.08) !important;
+		box-shadow: 0 0 0 4px rgba(108,92,255,0.10);
+	}
+	[data-howitworks][data-beat="2"] [data-card="json"] [data-card-dot] {
+		box-shadow: 0 0 12px var(--ad-violet);
+	}
+
+	[data-howitworks][data-beat="1"] [data-pill="cyan"] {
+		border-color: var(--ad-cyan) !important;
+		background: rgba(0,209,255,0.10) !important;
+		color: #fff !important;
+	}
+	[data-howitworks][data-beat="3"] [data-pill="violet"] {
+		border-color: var(--ad-violet) !important;
+		background: rgba(108,92,255,0.10) !important;
+		color: #fff !important;
+	}
+
+	[data-howitworks][data-beat="1"] [data-avatar-video] { filter: brightness(1.06) saturate(1.1) !important; }
+	[data-howitworks][data-beat="3"] [data-avatar-video] { filter: hue-rotate(8deg) saturate(1.15) brightness(1.02) !important; }
+
+	[data-howitworks][data-beat="1"] .hiw-color-wash {
+		background: radial-gradient(60% 40% at 42% 56%, rgba(0,209,255,0.18), transparent 70%);
+	}
+	[data-howitworks][data-beat="3"] .hiw-color-wash {
+		background: radial-gradient(80% 80% at 50% 50%, rgba(108,92,255,0.22), transparent 70%);
+	}
+
+	/* Connectors active per beat */
+	[data-howitworks][data-beat="0"] [data-connector="1"] .hiw-line,
+	[data-howitworks][data-beat="2"] [data-connector="1"] .hiw-line,
+	[data-howitworks][data-beat="1"] [data-connector="2"] .hiw-line,
+	[data-howitworks][data-beat="3"] [data-connector="2"] .hiw-line { background: var(--ad-cyan); transition: background 0.4s ease; }
+	[data-howitworks][data-beat="2"] [data-connector="1"] .hiw-line,
+	[data-howitworks][data-beat="3"] [data-connector="2"] .hiw-line { background: var(--ad-violet); }
+
+	[data-howitworks][data-beat="0"] [data-connector="1"] .hiw-arrow,
+	[data-howitworks][data-beat="2"] [data-connector="1"] .hiw-arrow,
+	[data-howitworks][data-beat="1"] [data-connector="2"] .hiw-arrow,
+	[data-howitworks][data-beat="3"] [data-connector="2"] .hiw-arrow { stroke: var(--ad-cyan); }
+	[data-howitworks][data-beat="2"] [data-connector="1"] .hiw-arrow,
+	[data-howitworks][data-beat="3"] [data-connector="2"] .hiw-arrow { stroke: var(--ad-violet); }
+
+	[data-howitworks][data-beat="0"] [data-connector="1"] .hiw-dot,
+	[data-howitworks][data-beat="2"] [data-connector="1"] .hiw-dot,
+	[data-howitworks][data-beat="1"] [data-connector="2"] .hiw-dot,
+	[data-howitworks][data-beat="3"] [data-connector="2"] .hiw-dot {
+		animation: hiw-travel 1.05s linear infinite;
+		background: var(--ad-cyan); box-shadow: 0 0 8px var(--ad-cyan);
+	}
+	[data-howitworks][data-beat="2"] [data-connector="1"] .hiw-dot,
+	[data-howitworks][data-beat="3"] [data-connector="2"] .hiw-dot { background: var(--ad-violet); box-shadow: 0 0 8px var(--ad-violet); }
+	@keyframes hiw-travel {
+		from { left: 0%; }
+		to   { left: 100%; }
+	}
+
+	/* Waveform wiggle */
+	[data-howitworks] [data-wave] rect { animation: hiw-bar 1.6s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+	[data-howitworks] [data-wave] rect:nth-child(2n)    { animation-delay: -0.2s; }
+	[data-howitworks] [data-wave] rect:nth-child(3n)    { animation-delay: -0.5s; }
+	[data-howitworks] [data-wave] rect:nth-child(5n)    { animation-delay: -0.9s; }
+	@keyframes hiw-bar {
+		0%, 100% { transform: scaleY(0.7); }
+		50%      { transform: scaleY(1.2); }
+	}
+</style>
+
+<script is:inline>
+	(function () {
+		const root = document.querySelector('[data-howitworks]');
+		if (!root) return;
+		let beat = 0;
+		const visemes = ['—', 'AA', '—', '—'];
+		const emotions = ['—', '—', 'joy · 0.78', 'joy · 0.78'];
+		const visemeEl = root.querySelector('[data-hud-viseme]');
+		const emotionEl = root.querySelector('[data-hud-emotion]');
+		setInterval(() => {
+			beat = (beat + 1) % 4;
+			root.dataset.beat = String(beat);
+			if (visemeEl) {
+				visemeEl.textContent = visemes[beat];
+				visemeEl.style.color = beat === 1 ? 'var(--ad-cyan)' : 'var(--ad-fog)';
+			}
+			if (emotionEl) {
+				emotionEl.textContent = emotions[beat];
+				emotionEl.style.color = beat === 3 ? 'var(--ad-violet)' : 'var(--ad-fog)';
+			}
+			// Frame strip: highlight one in 5 with current beat offset
+			root.querySelectorAll('[data-frame]').forEach((el) => {
+				const idx = Number(el.dataset.frame);
+				el.style.background = idx % 5 === beat ? 'var(--ad-cyan)' : 'var(--ad-hairline-light)';
+			});
+		}, 1100);
+	})();
+</script>

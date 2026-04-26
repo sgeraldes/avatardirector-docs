@@ -5,54 +5,89 @@ interface Props {
 const { lang } = Astro.props;
 const t = (en: string, es: string) => (lang === 'es' ? es : en);
 
-const cards = [
+const features = [
 	{
-		eyebrow: t('Lip-sync', 'Lip-sync'),
+		n: '01',
+		title: t('Single TCP socket', 'Un solo socket TCP'),
+		body: t(
+			'One connection on port 4500 carries both binary PCM frames and JSON command frames. No additional ports, no WebSockets.',
+			'Una conexión en el puerto 4500 lleva frames binarios PCM y frames JSON de comandos. Sin puertos extra, sin WebSockets.'
+		),
+		icon: '<path d="M4 11h16M4 15h16M7 7h.01M7 19h.01"/>',
+	},
+	{
+		n: '02',
 		title: t('On-device ML lip-sync', 'Lip-sync con ML en el dispositivo'),
-		desc: t(
-			'CPU ONNX models via UE NNE, with mood and standard variants. Tunable chunk size and thread counts at runtime.',
-			'Modelos ONNX en CPU vía UE NNE, con variantes mood y standard. Tamaño de chunk e hilos ajustables en runtime.'
+		body: t(
+			'Bundled ONNX runtime drives MetaHuman face animation directly from PCM. No external service, no per-phoneme tagging.',
+			'ONNX runtime integrado controla la animación facial directamente desde el PCM. Sin servicio externo, sin tagueo por fonema.'
 		),
+		icon: '<path d="M3 12h2l3-9 4 18 3-12 2 6h4"/>',
 	},
 	{
-		eyebrow: t('Expression', 'Expresión'),
-		title: t('Microexpressions on top of emotions', 'Microexpresiones sobre emociones'),
-		desc: t(
-			'Layered face curves drive subtle reactions — winces, smirks, brow flashes — without disturbing speech animation.',
-			'Curvas faciales en capas para reacciones sutiles — muecas, sonrisas, cejas — sin alterar la animación de la voz.'
+		n: '03',
+		title: t('8 emotions × 22 microexpressions', '8 emociones × 22 microexpresiones'),
+		body: t(
+			'Layered facial expression system blends primary emotions with subtle eye, brow, and mouth modulation.',
+			'Sistema en capas que mezcla emociones primarias con modulación sutil de ojos, cejas y boca.'
 		),
+		icon: '<circle cx="12" cy="12" r="9"/><path d="M9 13c0 1.7 1.3 3 3 3s3-1.3 3-3M9 9h.01M15 9h.01"/>',
 	},
 	{
-		eyebrow: t('Gaze', 'Mirada'),
-		title: t('Autonomous gaze FSM', 'FSM de mirada autónoma'),
-		desc: t(
-			'Idle, conversational, and explicit look-at modes. Eye aim flows post-RigLogic so the head feels alive between commands.',
-			'Modos idle, conversacional y look-at explícito. La mirada se aplica post-RigLogic para que la cabeza siga viva entre comandos.'
+		n: '04',
+		title: t('Body gesture library', 'Librería de gestos corporales'),
+		body: t(
+			'Named, sequenceable montages — greet, affirm, deny, point, shrug. Drive from JSON, blend with talking-head animation.',
+			'Montages nombrables y secuenciables — greet, affirm, deny, point, shrug. Controlados por JSON, mezclados con la animación de habla.'
 		),
+		icon: '<circle cx="12" cy="5" r="3"/><path d="M10 9v4l-3 9h2l2-6 1 6h2l1-6 2 6h2l-3-9V9"/>',
 	},
 	{
-		eyebrow: t('Backend', 'Backend'),
-		title: t('Streaming config without restarts', 'Configuración en streaming sin reinicios'),
-		desc: t(
-			'Adjust lip-sync model, optimization tier, idle behaviors, and the debug overlay live, mid-session, over JSON commands.',
-			'Cambia el modelo de lip-sync, el tier de optimización, los comportamientos idle y el panel de depuración en vivo, vía comandos JSON.'
+		n: '05',
+		title: t('Non-intrusive integration', 'Integración no intrusiva'),
+		body: t(
+			'No modification to the MetaHuman face animation Blueprint. Drop the plugin in, expose the socket, ship.',
+			'Sin modificar el Blueprint de animación facial del MetaHuman. Instalá el plugin, expuesto el socket, listo.'
 		),
+		icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="M9 12l2 2 4-4"/>',
+	},
+	{
+		n: '06',
+		title: t('Game-thread safe', 'Game-thread safe'),
+		body: t(
+			'All dispatches marshaled onto the game thread. Authors write integrations without reasoning about UE threading rules.',
+			'Todos los despachos se llevan al game thread. Integrás sin razonar sobre las reglas de threading de UE.'
+		),
+		icon: '<path d="M5 12h14M5 12l4-4M5 12l4 4"/>',
 	},
 ];
 ---
 
-<section class="border-t border-white/[0.06] py-16 md:py-20">
+<section class="border-t border-white/[0.06] py-24">
 	<div class="mx-auto max-w-[1280px] px-6">
-		<div class="mb-10 max-w-2xl">
-			<div class="text-xs font-semibold tracking-wider text-ad-cyan uppercase">{t('What it does', 'Qué hace')}</div>
-			<h2 class="mt-2 text-3xl font-bold tracking-tight md:text-4xl">{t('Built for performance. Designed for expressiveness.', 'Construido para el rendimiento. Diseñado para la expresividad.')}</h2>
-		</div>
-		<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-			{cards.map((c) => (
-				<article class="ad-card flex flex-col gap-3 p-6">
-					<div class="text-xs font-semibold tracking-wider text-ad-fog uppercase">{c.eyebrow}</div>
-					<h3 class="text-lg font-semibold leading-tight text-white">{c.title}</h3>
-					<p class="text-sm leading-relaxed text-ad-fog">{c.desc}</p>
+		<div class="text-[11px] font-semibold tracking-[0.12em] text-ad-cyan uppercase">{t('What it does', 'Qué hace')}</div>
+		<h2 class="ad-display mt-3 mb-3 max-w-[720px] text-white" style="font-size:36px;font-weight:700;">
+			{t('Backend speaks.', 'El backend habla.')} <span class="ad-grad-text">{t('Avatar performs.', 'El avatar actúa.')}</span>
+		</h2>
+		<p class="m-0 max-w-[640px] text-base leading-[1.65] text-ad-fog">
+			{t(
+				'Six guarantees the plugin makes — so your backend stays simple and your avatar stays in character.',
+				'Seis garantías que ofrece el plugin — para que tu backend sea simple y tu avatar quede en personaje.'
+			)}
+		</p>
+
+		<div class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+			{features.map((f) => (
+				<article class="ad-card group p-6 transition-colors" style="transition:border-color 0.2s ease;">
+					<div class="mb-4 flex items-center justify-between">
+						<div class="flex h-[38px] w-[38px] items-center justify-center rounded-[10px] border border-white/10 text-ad-cyan"
+						     style="background:linear-gradient(135deg, rgba(108,92,255,0.18), rgba(0,209,255,0.18));">
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={f.icon} />
+						</div>
+						<span class="font-mono text-[11px] tracking-[0.06em] text-ad-fog">{f.n}</span>
+					</div>
+					<div class="mb-2 text-base font-semibold text-white">{f.title}</div>
+					<div class="text-sm leading-[1.6] text-ad-fog">{f.body}</div>
 				</article>
 			))}
 		</div>
