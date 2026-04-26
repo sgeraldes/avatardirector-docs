@@ -1,6 +1,15 @@
 @import "tailwindcss";
 @import "@fontsource-variable/inter";
 
+/* Allumi Std — brand display face. Self-hosted from /public/fonts/. */
+@font-face {
+	font-family: 'Allumi Std';
+	src: url('/fonts/allumi-std-light.otf') format('opentype');
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+
 /* AvatarDirector design tokens — single source of truth.
    Mirrors the brand mockup: dark only, gradient-forward. */
 :root {
@@ -14,13 +23,46 @@
 	--ad-void: #0f1219;
 	--ad-white: #ffffff;
 
+	/* Extended emotion palette (8 emotions) */
+	--emotion-neutral:  #a1a6b2;
+	--emotion-joy:      #ffc857;
+	--emotion-sadness:  #6c5cff;
+	--emotion-anger:    #ff6b6b;
+	--emotion-fear:     #7ae582;
+	--emotion-surprise: #00d1ff;
+	--emotion-disgust:  #9b7afa;
+	--emotion-trust:    #ff9560;
+
 	--ad-grad-primary: linear-gradient(135deg, #6c5cff 0%, #00d1ff 100%);
 	--ad-grad-cyan-mint: linear-gradient(135deg, #00d1ff 0%, #7ae582 100%);
 	--ad-grad-amber-coral: linear-gradient(135deg, #ffc857 0%, #ff6b6b 100%);
+	--ad-grad-violet-blur: radial-gradient(circle at 50% 0%, rgba(108,92,255,0.20), transparent 60%);
+	--ad-grad-cyan-blur: radial-gradient(circle at 100% 0%, rgba(0,209,255,0.20), transparent 60%);
 
 	--ad-shadow-glow: 0 0 32px -4px rgba(108, 92, 255, 0.45);
+	--ad-shadow-cyan: 0 0 32px -4px rgba(0, 209, 255, 0.40);
 	--ad-shadow-card: 0 1px 0 0 rgba(255, 255, 255, 0.04) inset,
 		0 8px 24px -12px rgba(0, 0, 0, 0.6);
+	--ad-shadow-hero: 0 30px 80px -20px rgba(108, 92, 255, 0.35);
+
+	/* Hairlines */
+	--ad-hairline:        rgba(161, 166, 178, 0.12);
+	--ad-hairline-light:  rgba(161, 166, 178, 0.20);
+	--ad-hairline-shade:  rgba(161, 166, 178, 0.08);
+	--ad-hairline-white:  rgba(255, 255, 255, 0.06);
+	--ad-hairline-white-2:rgba(255, 255, 255, 0.10);
+
+	/* Radii */
+	--ad-radius-xs:   4px;
+	--ad-radius-sm:   6px;
+	--ad-radius-md:  10px;
+	--ad-radius-lg:  16px;
+	--ad-radius-xl:  20px;
+	--ad-radius-2xl: 24px;
+	--ad-radius-pill:999px;
+
+	/* Type families */
+	--ad-font-display: 'Allumi Std', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Starlight theme overrides — dark theme only. We set both [data-theme] blocks
@@ -79,7 +121,24 @@ body {
 	--color-ad-fog: #a1a6b2;
 	--color-ad-ink: #1a1f2b;
 	--color-ad-void: #0f1219;
+	--color-emotion-neutral: #a1a6b2;
+	--color-emotion-joy: #ffc857;
+	--color-emotion-sadness: #6c5cff;
+	--color-emotion-anger: #ff6b6b;
+	--color-emotion-fear: #7ae582;
+	--color-emotion-surprise: #00d1ff;
+	--color-emotion-disgust: #9b7afa;
+	--color-emotion-trust: #ff9560;
 	--font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+	--font-display: 'Allumi Std', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Brand display utility — Allumi Std Light, 300 weight, slight negative tracking.
+   Used for hero h1 + AvatarDirector wordmark. */
+.ad-display {
+	font-family: var(--ad-font-display);
+	font-weight: 300;
+	letter-spacing: -0.01em;
 }
 
 .ad-grad-text {

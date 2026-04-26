@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" role="img" aria-label="AvatarDirector">
+  <defs>
+    <linearGradient id="ad-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1FE3FF"></stop>
+      <stop offset="35%" stop-color="#2A9CFF"></stop>
+      <stop offset="70%" stop-color="#6C5CFF"></stop>
+      <stop offset="100%" stop-color="#7B3FE0"></stop>
+    </linearGradient>
+    <linearGradient id="ad-grad-soft" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1FE3FF" stop-opacity="0.0"></stop>
+      <stop offset="60%" stop-color="#9B82FF" stop-opacity="0.4"></stop>
+      <stop offset="100%" stop-color="#7B3FE0" stop-opacity="0.0"></stop>
+    </linearGradient>
+  </defs>
+
+  
+  <path d="&#xA;    M 12 184&#xA;    L 80 16&#xA;    L 110 16&#xA;    L 156 16&#xA;    A 80 80 0 0 1 156 184&#xA;    L 130 184&#xA;    L 110 130&#xA;    L 70 130&#xA;    L 48 184&#xA;    Z&#xA;    M 84 102&#xA;    L 108 102&#xA;    L 96 70&#xA;    Z&#xA;    M 130 50&#xA;    L 156 50&#xA;    A 50 50 0 0 1 156 150&#xA;    L 130 150&#xA;    L 108 92&#xA;    Z&#xA;  " fill="url(#ad-grad)" fill-rule="evenodd"></path>
+
+  
+  <path d="&#xA;    M 12 184&#xA;    L 80 16&#xA;    L 110 16&#xA;    L 156 16&#xA;    A 80 80 0 0 1 156 184&#xA;    L 130 184&#xA;    L 110 130&#xA;    L 70 130&#xA;    L 48 184&#xA;    Z&#xA;  " fill="url(#ad-grad-soft)" opacity="0.6" style="mix-blend-mode:screen;"></path>
+
+  
+  <rect x="62" y="118" width="58" height="10" rx="2" fill="#1FE3FF" opacity="0.92"></rect>
+</svg>
