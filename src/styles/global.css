@@ -4,7 +4,7 @@
 /* Allumi Std — brand display face. Self-hosted from /public/fonts/. */
 @font-face {
 	font-family: 'Allumi Std';
-	src: url('/fonts/allumi-std-light.otf') format('opentype');
+	src: url('/avatardirector-docs/fonts/allumi-std-light.otf') format('opentype');
 	font-weight: 300;
 	font-style: normal;
 	font-display: swap;
