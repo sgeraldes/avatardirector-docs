@@ -31,32 +31,27 @@ const steps = [
 
 <section class="border-t border-white/[0.06] py-16 md:py-20">
 	<div class="mx-auto max-w-[1280px] px-6">
-		<div class="mb-10 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-			<div>
-				<div class="text-xs font-semibold tracking-wider text-ad-cyan uppercase">{t('How it works', 'Cómo funciona')}</div>
-				<h2 class="mt-2 text-3xl font-bold tracking-tight md:text-4xl">{t('Backend speaks. Avatar performs.', 'El backend habla. El avatar actúa.')}</h2>
-			</div>
-			<p class="max-w-md text-sm leading-relaxed text-ad-fog">
+		<div class="mb-12 max-w-3xl">
+			<div class="text-xs font-semibold tracking-wider text-ad-cyan uppercase">{t('How it works', 'Cómo funciona')}</div>
+			<h2 class="mt-2 text-3xl font-bold tracking-tight md:text-4xl">{t('Backend speaks. Avatar performs.', 'El backend habla. El avatar actúa.')}</h2>
+			<p class="mt-4 text-base leading-relaxed text-ad-fog">
 				{t(
-					'One TCP connection carries everything: PCM audio for the mouth, JSON for everything else. The plugin marshals all dispatches onto the game thread before touching animation state.',
+					'One TCP connection carries everything: PCM audio for the mouth, JSON for everything else. The plugin marshals every dispatch onto the game thread before touching animation state.',
 					'Una sola conexión TCP lo lleva todo: audio PCM para la boca, JSON para el resto. El plugin lleva cada despacho al game thread antes de tocar el estado de animación.'
 				)}
 			</p>
 		</div>
 		<ol class="grid gap-3 md:grid-cols-4">
 			{steps.map((s, i) => (
-				<li class="ad-card relative flex flex-col gap-3 p-5">
+				<li class="ad-card flex flex-col gap-3 p-5">
 					<div class="flex items-center gap-3">
 						<div class="flex size-10 items-center justify-center rounded-lg ad-grad-bg text-white">
 							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d={s.iconPath}/></svg>
 						</div>
-						<span class="text-xs font-semibold tracking-wider text-ad-fog uppercase">{`0${i + 1}`}</span>
+						<span class="font-mono text-xs font-semibold tracking-wider text-ad-fog">{`0${i + 1}`}</span>
 					</div>
 					<h3 class="text-base font-semibold text-white">{s.label}</h3>
 					<p class="text-sm leading-relaxed text-ad-fog">{s.desc}</p>
-					{i < steps.length - 1 && (
-						<svg class="absolute -right-3 top-1/2 hidden size-6 -translate-y-1/2 text-ad-fog/40 md:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-					)}
 				</li>
 			))}
 		</ol>

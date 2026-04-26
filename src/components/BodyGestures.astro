@@ -6,35 +6,63 @@ const { lang } = Astro.props;
 const t = (en: string, es: string) => (lang === 'es' ? es : en);
 
 const gestures = [
-	{ label: t('Greet', 'Saludar'), pose: 'M50 30c-3 0-6 2-6 5v3l-9 8c-2 1-2 4-1 6 1 2 4 2 6 1l8-7v18c0 2 2 3 4 3s4-1 4-3V46l8 7c2 1 5 1 6-1 1-2 1-5-1-6l-9-8v-3c0-3-3-5-6-5h-4Z' },
-	{ label: t('Affirm', 'Afirmar'), pose: 'M52 30c-3 0-6 2-6 5v32c0 2 2 4 4 4s4-2 4-4V35c0-3-2-5-2-5Zm-3 11-8 8c-2 1-2 4 0 6 1 1 4 1 5-1l5-5Zm6 0v8l5 5c2 2 4 2 6 1 1-2 1-5-1-6Z' },
-	{ label: t('Point', 'Señalar'), pose: 'M50 30c-3 0-6 2-6 5v15l-12 12c-1 1-1 4 0 5 2 2 5 1 6 0l13-12 13 12c1 1 4 2 5 0 2-1 2-4 1-5L58 50V35c0-3-2-5-5-5z' },
-	{ label: t('Open arms', 'Abrir brazos'), pose: 'M50 30c-3 0-6 2-6 5v6L24 38c-2 0-4 2-3 4s3 4 5 4l18 1v25c0 2 2 4 4 4s4-2 4-4V47l18-1c2 0 4-2 5-4 1-2-1-4-3-4L52 41v-6c0-3-2-5-2-5z' },
-	{ label: t('Cheer', 'Animar'), pose: 'M52 25c-3 0-5 2-5 4v3l-12-3c-2-1-4 1-4 3 0 3 2 5 4 6l12 3v34c0 2 2 4 4 4s4-2 4-4V41l12-3c2-1 4-3 4-6 0-2-2-4-4-3l-12 3v-3c0-2-1-4-3-4z' },
+	'greet',
+	'affirm',
+	'deny',
+	'point',
+	'shrug',
+	'open_arms',
+	'cheer',
+	'wave',
+	'thinking_pose',
+	'count_one',
+	'count_two',
+	'invite',
 ];
 ---
 
 <section class="border-t border-white/[0.06] py-16 md:py-20">
 	<div class="mx-auto max-w-[1280px] px-6">
-		<div class="mb-10 max-w-2xl">
+		<div class="mb-10 max-w-3xl">
 			<div class="text-xs font-semibold tracking-wider text-ad-cyan uppercase">{t('Body gestures', 'Gestos corporales')}</div>
-			<h2 class="mt-2 text-3xl font-bold tracking-tight md:text-4xl">{t('Full-body montages, not just talking heads.', 'Montages de cuerpo completo, no solo cabezas parlantes.')}</h2>
-			<p class="mt-3 text-sm leading-relaxed text-ad-fog">
+			<h2 class="mt-2 text-3xl font-bold tracking-tight md:text-4xl">{t('Full-body montages, not just talking heads.', 'Montages de cuerpo completo, no sólo cabezas parlantes.')}</h2>
+			<p class="mt-4 text-base leading-relaxed text-ad-fog">
 				{t(
-					'Gesture montages run on the body mesh, sequenced through the same state machine as speech and emotion. Triggered with a single JSON command.',
-					'Los montages de gestos corren en la malla del cuerpo, secuenciados por la misma máquina de estados que el habla y la emoción. Se activan con un único comando JSON.'
+					'Gesture montages run on the body mesh, sequenced through the same state machine as speech and emotion. Triggered with one JSON command — name it and send it.',
+					'Los montages de gestos corren en la malla del cuerpo, secuenciados por la misma máquina de estados que el habla y la emoción. Se disparan con un solo comando JSON — nómbralo y mandálo.'
 				)}
 			</p>
 		</div>
-		<div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
-			{gestures.map((g) => (
-				<div class="ad-card flex flex-col items-center gap-2 p-5">
-					<svg viewBox="0 0 100 100" class="h-24 w-auto text-ad-fog/70" fill="currentColor">
-						<path d={g.pose} />
-					</svg>
-					<div class="text-sm font-medium text-white">{g.label}</div>
+
+		<div class="grid gap-4 lg:grid-cols-[1.2fr_1fr]">
+			<div class="ad-card p-6">
+				<div class="mb-4 flex items-center justify-between">
+					<div class="text-[11px] font-semibold tracking-wider text-ad-fog uppercase">{t('Available gestures', 'Gestos disponibles')}</div>
+					<div class="text-xs text-ad-fog">{t('extend at runtime via montage assets', 'extensible en runtime con montages')}</div>
 				</div>
-			))}
+				<div class="flex flex-wrap gap-2">
+					{gestures.map((g) => (
+						<code class="rounded-md border border-white/10 bg-white/[0.03] px-2.5 py-1 font-mono text-sm text-white transition-colors hover:border-ad-cyan/50 hover:text-ad-cyan">{g}</code>
+					))}
+				</div>
+			</div>
+
+			<div class="ad-card overflow-hidden p-0">
+				<div class="flex items-center justify-between border-b border-white/[0.06] px-5 py-3">
+					<div class="text-[11px] font-semibold tracking-wider text-ad-fog uppercase">{t('Trigger any gesture', 'Disparar cualquier gesto')}</div>
+					<span class="ad-pill is-info"><span class="dot"></span>JSON</span>
+				</div>
+				<pre class="overflow-x-auto p-5 text-sm leading-relaxed"><code class="font-mono text-ad-fog"><span class="text-ad-fog">{'{ '}</span><span class="text-ad-cyan">"type"</span><span class="text-ad-fog">: </span><span class="text-ad-mint">"anim_gesture"</span><span class="text-ad-fog">, </span><span class="text-ad-cyan">"name"</span><span class="text-ad-fog">: </span><span class="text-ad-mint">"greet"</span><span class="text-ad-fog">{' }'}</span></code></pre>
+				<div class="border-t border-white/[0.06] px-5 py-3 text-xs leading-relaxed text-ad-fog">
+					{t(
+						'Replace ',
+						'Reemplazá '
+					)}<code class="rounded bg-white/[0.05] px-1 font-mono text-ad-cyan">"greet"</code>{t(
+						' with any name from the list. Sent over the same TCP socket as audio and config.',
+						' por cualquier nombre de la lista. Va por el mismo socket TCP que el audio y la config.'
+					)}
+				</div>
+			</div>
 		</div>
 	</div>
 </section>
