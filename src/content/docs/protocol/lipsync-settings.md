@@ -34,17 +34,32 @@ One TCP connection per avatar, port **4500** by default (override with `-AvatarP
 
 Each frame:
 
-```text
-┌────────┬──────────────────┬─────────────────┐
-│ 1 byte │ 4 bytes LE       │ N bytes         │
-│ Type   │ Payload length N │ Payload         │
-└────────┴──────────────────┴─────────────────┘
-```
+<div class="ad-frame">
+  <div class="ad-frame__row">
+    <div class="ad-frame__cell ad-frame__cell--cyan">
+      <div class="ad-frame__eyebrow ad-frame__eyebrow--cyan">1 byte</div>
+      <div class="ad-frame__name">Type</div>
+    </div>
+    <div class="ad-frame__cell ad-frame__cell--violet">
+      <div class="ad-frame__eyebrow ad-frame__eyebrow--violet">4 bytes LE</div>
+      <div class="ad-frame__name">Payload length N</div>
+    </div>
+    <div class="ad-frame__cell ad-frame__cell--mint">
+      <div class="ad-frame__eyebrow ad-frame__eyebrow--mint">N bytes</div>
+      <div class="ad-frame__name">Payload</div>
+    </div>
+  </div>
+  <div class="ad-frame__offsets">
+    <div>offset 0</div>
+    <div>offset 1</div>
+    <div>offset 5 → 5 + N</div>
+  </div>
+</div>
 
 | Type | Payload | Meaning |
 |---|---|---|
 | `0` | raw PCM bytes | Audio chunk (must match §1 format). |
-| `1` | UTF-8 JSON | Command (emotion / microexpression / config / etc — see [TCP protocol](/protocol/tcp)). |
+| `1` | UTF-8 JSON | Command (emotion / microexpression / config / etc — see [TCP protocol](./tcp)). |
 
 A second connection on the same port is rejected — drop and reconnect; do not multiplex.
 

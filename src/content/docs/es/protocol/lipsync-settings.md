@@ -34,17 +34,32 @@ Una conexión TCP por avatar, puerto **4500** por defecto (override con `-Avatar
 
 Cada frame:
 
-```text
-┌────────┬──────────────────┬─────────────────┐
-│ 1 byte │ 4 bytes LE       │ N bytes         │
-│ Tipo   │ Largo payload N  │ Payload         │
-└────────┴──────────────────┴─────────────────┘
-```
+<div class="ad-frame">
+  <div class="ad-frame__row">
+    <div class="ad-frame__cell ad-frame__cell--cyan">
+      <div class="ad-frame__eyebrow ad-frame__eyebrow--cyan">1 byte</div>
+      <div class="ad-frame__name">Tipo</div>
+    </div>
+    <div class="ad-frame__cell ad-frame__cell--violet">
+      <div class="ad-frame__eyebrow ad-frame__eyebrow--violet">4 bytes LE</div>
+      <div class="ad-frame__name">Largo payload N</div>
+    </div>
+    <div class="ad-frame__cell ad-frame__cell--mint">
+      <div class="ad-frame__eyebrow ad-frame__eyebrow--mint">N bytes</div>
+      <div class="ad-frame__name">Payload</div>
+    </div>
+  </div>
+  <div class="ad-frame__offsets">
+    <div>offset 0</div>
+    <div>offset 1</div>
+    <div>offset 5 → 5 + N</div>
+  </div>
+</div>
 
 | Tipo | Payload | Significado |
 |---|---|---|
 | `0` | bytes PCM crudos | Chunk de audio (debe cumplir §1). |
-| `1` | JSON UTF-8 | Comando (emoción / microexpresión / config / etc — ver [Protocolo TCP](/es/protocol/tcp)). |
+| `1` | JSON UTF-8 | Comando (emoción / microexpresión / config / etc — ver [Protocolo TCP](./tcp)). |
 
 Una segunda conexión al mismo puerto se rechaza — cerrá y reconectá; no multiplexes.
 

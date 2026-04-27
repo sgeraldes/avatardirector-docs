@@ -20,7 +20,7 @@ Para desarrollo activo entre dos proyectos (por ejemplo, un repo source-of-truth
 ## Después de instalar
 
 1. Añade `AvatarDirector` al array `Plugins` de tu `.uproject`, o actívalo desde el panel Plugins del editor.
-2. Verifica que los [plugins requeridos](/es/prerequisites#plugins-requeridos) también estén activados.
+2. Verifica que los [plugins requeridos](./prerequisites#plugins-requeridos) también estén activados.
 3. Regenera los archivos de proyecto de Visual Studio.
 4. Compila el target Editor.
 5. Abre el proyecto, coloca un `AAvatarDirectorActor` en tu nivel (Patrón A), o haz que un GameMode lo spawee en runtime (Patrón B).

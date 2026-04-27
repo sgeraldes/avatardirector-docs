@@ -26,9 +26,9 @@ A single backend connection feeds the avatar everything it needs. The plugin mar
 
 ## Where to go next
 
-- **[Prerequisites](/prerequisites)** — engine version and required plugins.
-- **[Installation](/installation)** — getting the plugin into a project.
-- **[TCP protocol](/protocol/tcp)** — wire format for everything the backend sends.
-- **[Lip-sync settings](/protocol/lipsync-settings)** — required audio format, framing, and tunables for TTS integrators.
-- **[Session lifecycle](/protocol/session-lifecycle)** — when sessions start, end, and what each command does to them.
-- **[LS009 release notes](/releases/ls009)** — most recent customer-facing update.
+- **[Prerequisites](./prerequisites)** — engine version and required plugins.
+- **[Installation](./installation)** — getting the plugin into a project.
+- **[TCP protocol](./protocol/tcp)** — wire format for everything the backend sends.
+- **[Lip-sync settings](./protocol/lipsync-settings)** — required audio format, framing, and tunables for TTS integrators.
+- **[Session lifecycle](./protocol/session-lifecycle)** — when sessions start, end, and what each command does to them.
+- **[LS009 release notes](./releases/ls009)** — most recent customer-facing update.

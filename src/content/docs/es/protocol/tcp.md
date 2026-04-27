@@ -9,12 +9,27 @@ El avatar acepta una sola conexión TCP en el puerto `4500` (override con `-Avat
 
 Cada frame en el cable tiene la misma forma:
 
-```text
-┌────────┬──────────────────┬─────────────────┐
-│ 1 byte │ 4 bytes LE       │ N bytes         │
-│ Tipo   │ Largo payload N  │ Payload         │
-└────────┴──────────────────┴─────────────────┘
-```
+<div class="ad-frame">
+  <div class="ad-frame__row">
+    <div class="ad-frame__cell ad-frame__cell--cyan">
+      <div class="ad-frame__eyebrow ad-frame__eyebrow--cyan">1 byte</div>
+      <div class="ad-frame__name">Tipo</div>
+    </div>
+    <div class="ad-frame__cell ad-frame__cell--violet">
+      <div class="ad-frame__eyebrow ad-frame__eyebrow--violet">4 bytes LE</div>
+      <div class="ad-frame__name">Largo payload N</div>
+    </div>
+    <div class="ad-frame__cell ad-frame__cell--mint">
+      <div class="ad-frame__eyebrow ad-frame__eyebrow--mint">N bytes</div>
+      <div class="ad-frame__name">Payload</div>
+    </div>
+  </div>
+  <div class="ad-frame__offsets">
+    <div>offset 0</div>
+    <div>offset 1</div>
+    <div>offset 5 → 5 + N</div>
+  </div>
+</div>
 
 | Tipo | Payload | Significado |
 |---|---|---|
@@ -30,7 +45,7 @@ No hay frame de acknowledgement. El backend produce, el avatar consume. La contr
 - **Canales:** 1 (mono).
 - **Encoding:** bytes PCM crudos — sin header WAV/MP3/Opus.
 
-Cadencia de chunks y semántica de silencio: ver [Ajustes de lip-sync](/es/protocol/lipsync-settings).
+Cadencia de chunks y semántica de silencio: ver [Ajustes de lip-sync](./lipsync-settings).
 
 ## Frames de comando (Tipo `1`)
 
@@ -58,5 +73,5 @@ Cada comando se despacha al game thread antes de leer o escribir estado de anima
 
 ## Ver también
 
-- [Ajustes de lip-sync](/es/protocol/lipsync-settings) — referencia larga para integradores del stream de audio.
-- [Ciclo de vida de la sesión](/es/protocol/session-lifecycle) — cuándo empieza y termina una sesión, y cómo interactúan `listen` / `stop` / `reset`.
+- [Ajustes de lip-sync](./lipsync-settings) — referencia larga para integradores del stream de audio.
+- [Ciclo de vida de la sesión](./session-lifecycle) — cuándo empieza y termina una sesión, y cómo interactúan `listen` / `stop` / `reset`.

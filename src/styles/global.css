@@ -219,3 +219,54 @@ body {
 	0%, 100% { opacity: 1; transform: scale(1); }
 	50% { opacity: 0.6; transform: scale(1.4); }
 }
+
+/* ── Frame format diagram (kit DocsArticle pattern) ──
+   Replaces ASCII frame boxes in protocol docs with a colored 3-column grid.
+   Used inline as plain HTML inside .md files. */
+.ad-frame {
+	background: var(--ad-void);
+	border: 1px solid var(--ad-hairline);
+	border-radius: 10px;
+	padding: 18px;
+	font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+	font-size: 13px;
+	color: #d4d7de;
+	margin: 18px 0;
+}
+.ad-frame__row {
+	display: grid;
+	grid-template-columns: 110px 220px 1fr;
+	border: 1px solid var(--ad-cyan);
+	border-radius: 6px;
+	overflow: hidden;
+}
+.ad-frame__cell {
+	padding: 10px 14px;
+}
+.ad-frame__cell + .ad-frame__cell { border-left: 1px solid var(--ad-hairline-light); }
+.ad-frame__cell--cyan   { background: rgba(0, 209, 255, 0.06); }
+.ad-frame__cell--violet { background: rgba(108, 92, 255, 0.06); }
+.ad-frame__cell--mint   { background: rgba(122, 229, 130, 0.04); }
+.ad-frame__eyebrow {
+	font-size: 10px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	font-weight: 600;
+}
+.ad-frame__eyebrow--cyan   { color: var(--ad-cyan); }
+.ad-frame__eyebrow--violet { color: var(--ad-violet); }
+.ad-frame__eyebrow--mint   { color: var(--ad-mint); }
+.ad-frame__name { color: #fff; margin-top: 4px; font-weight: 500; }
+.ad-frame__offsets {
+	display: grid;
+	grid-template-columns: 110px 220px 1fr;
+	margin-top: 6px;
+	font-size: 10px;
+	color: var(--ad-fog);
+	letter-spacing: 0.04em;
+	text-align: center;
+}
+@media (max-width: 640px) {
+	.ad-frame__row, .ad-frame__offsets { grid-template-columns: 1fr; }
+	.ad-frame__cell + .ad-frame__cell { border-left: none; border-top: 1px solid var(--ad-hairline-light); }
+}

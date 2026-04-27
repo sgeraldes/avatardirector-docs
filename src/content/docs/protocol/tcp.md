@@ -9,12 +9,27 @@ The avatar accepts a single TCP connection on port `4500` (override with `-Avata
 
 Every frame on the wire has the same shape:
 
-```text
-┌────────┬──────────────────┬─────────────────┐
-│ 1 byte │ 4 bytes LE       │ N bytes         │
-│ Type   │ Payload length N │ Payload         │
-└────────┴──────────────────┴─────────────────┘
-```
+<div class="ad-frame">
+  <div class="ad-frame__row">
+    <div class="ad-frame__cell ad-frame__cell--cyan">
+      <div class="ad-frame__eyebrow ad-frame__eyebrow--cyan">1 byte</div>
+      <div class="ad-frame__name">Type</div>
+    </div>
+    <div class="ad-frame__cell ad-frame__cell--violet">
+      <div class="ad-frame__eyebrow ad-frame__eyebrow--violet">4 bytes LE</div>
+      <div class="ad-frame__name">Payload length N</div>
+    </div>
+    <div class="ad-frame__cell ad-frame__cell--mint">
+      <div class="ad-frame__eyebrow ad-frame__eyebrow--mint">N bytes</div>
+      <div class="ad-frame__name">Payload</div>
+    </div>
+  </div>
+  <div class="ad-frame__offsets">
+    <div>offset 0</div>
+    <div>offset 1</div>
+    <div>offset 5 → 5 + N</div>
+  </div>
+</div>
 
 | Type | Payload | Meaning |
 |---|---|---|
@@ -30,7 +45,7 @@ There is no acknowledgement frame. The backend produces, the avatar consumes. Ba
 - **Channels:** 1 (mono).
 - **Encoding:** raw PCM bytes — no WAV/MP3/Opus header.
 
-For the chunk-cadence and silence semantics, see [Lip-sync settings](/protocol/lipsync-settings).
+For the chunk-cadence and silence semantics, see [Lip-sync settings](./lipsync-settings).
 
 ## Command frames (Type `1`)
 
@@ -58,5 +73,5 @@ Every command is dispatched onto the game thread before any animation state is r
 
 ## See also
 
-- [Lip-sync settings](/protocol/lipsync-settings) — the long-form integrator reference for the audio stream.
-- [Session lifecycle](/protocol/session-lifecycle) — when sessions start and end, and how `listen` / `stop` / `reset` interact.
+- [Lip-sync settings](./lipsync-settings) — the long-form integrator reference for the audio stream.
+- [Session lifecycle](./session-lifecycle) — when sessions start and end, and how `listen` / `stop` / `reset` interact.

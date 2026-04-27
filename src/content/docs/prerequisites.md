@@ -13,8 +13,9 @@ description: Engine version, required plugins, and optional integrations.
 | Plugin | Why |
 |---|---|
 | `MetaHuman` | The avatar itself. |
-| `RuntimeMetaHumanLipSync` (Georgy Treshchev) | On-device ML lip-sync. The plugin links against it as a hard dependency. |
-| `NNE` (built-in) | Neural Network Engine, used for the ONNX lip-sync models. |
+| `NNE` (built-in) | Neural Network Engine. Used for the ONNX lip-sync models. |
+
+The on-device ML lip-sync runtime ships **inside this plugin** — no third-party lip-sync dependency required.
 
 ## Optional plugins
 
