@@ -1,0 +1,42 @@
+---
+/**
+ * Custom Starlight SiteTitle override.
+ * Renders the same brand composition as the landing header so docs and
+ * landing share one visual identity: transparent AD monogram + Allumi
+ * typography wordmark with violet→cyan gradient on "DIRECTOR".
+ */
+import type { Props } from '@astrojs/starlight/props';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const lang = (Astro.props as Props).locale === 'es' ? 'es' : 'en';
+const homeHref = lang === 'es' ? `${base}/es/` : `${base}/`;
+---
+
+<a href={homeHref} class="ad-site-title" aria-label="AvatarDirector">
+	<img src={`${base}/brand/ad-mark-bg-stripped.png`} alt="" />
+	<span class="ad-display ad-site-title__word">
+		AVATAR<span class="ad-grad-text">DIRECTOR</span>
+	</span>
+</a>
+
+<style>
+	.ad-site-title {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.65rem;
+		text-decoration: none;
+		color: #fff;
+	}
+	.ad-site-title img {
+		height: 28px;
+		width: auto;
+		display: block;
+	}
+	.ad-site-title__word {
+		font-size: 1rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		color: #fff;
+		white-space: nowrap;
+	}
+</style>

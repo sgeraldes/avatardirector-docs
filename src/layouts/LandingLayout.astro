@@ -33,14 +33,15 @@ const t = (en: string, es: string) => (lang === 'es' ? es : en);
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
-		<meta property="og:image" content={`${base}/brand/ad-lockup-horizontal-final.png`} />
+		<meta property="og:image" content={`${base}/brand/ad-lockup-horizontal-final-bg-stripped.png`} />
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:image" content={`${base}/brand/ad-lockup-horizontal-final.png`} />
+		<meta name="twitter:image" content={`${base}/brand/ad-lockup-horizontal-final-bg-stripped.png`} />
 	</head>
 	<body class="bg-ad-void text-white">
 		<header class="sticky top-0 z-50 border-b border-white/[0.06] bg-ad-void/80 backdrop-blur-md">
 			<div class="mx-auto flex h-16 max-w-[1280px] items-center justify-between px-6">
-				<a href={lang === 'es' ? esHref : enHref} class="flex items-center" aria-label="AvatarDirector">
+				<a href={lang === 'es' ? esHref : enHref} class="flex items-center gap-2.5" aria-label="AvatarDirector">
+					<img src={`${base}/brand/ad-mark-bg-stripped.png`} alt="" style="height:28px;width:auto;display:block;" />
 					<span class="ad-display text-base font-semibold tracking-[0.04em] text-white">
 						AVATAR<span class="ad-grad-text">DIRECTOR</span>
 					</span>
@@ -70,9 +71,12 @@ const t = (en: string, es: string) => (lang === 'es' ? es : en);
 		<footer class="border-t border-white/[0.06] pt-16 pb-12">
 			<div class="mx-auto grid max-w-[1280px] gap-10 px-6 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
 				<div>
-					<span class="ad-display text-base font-semibold tracking-[0.04em] text-white">
-						AVATAR<span class="ad-grad-text">DIRECTOR</span>
-					</span>
+					<div class="flex items-center gap-2.5">
+						<img src={`${base}/brand/ad-mark-bg-stripped.png`} alt="" style="height:28px;width:auto;display:block;" />
+						<span class="ad-display text-base font-semibold tracking-[0.04em] text-white">
+							AVATAR<span class="ad-grad-text">DIRECTOR</span>
+						</span>
+					</div>
 					<p class="mt-4 max-w-[320px] text-sm leading-relaxed text-ad-fog">
 						{t(
 							'A proprietary Unreal Engine plugin for real-time MetaHuman avatar control. Available on the Fab Marketplace.',

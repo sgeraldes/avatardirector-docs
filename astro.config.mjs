@@ -17,6 +17,9 @@ export default defineConfig({
 			description:
 				'Real-time avatar control for Unreal Engine 5.7. Drives a MetaHuman from any backend over a single TCP socket.',
 			favicon: '/favicon.png',
+			components: {
+				SiteTitle: './src/components/starlight/SiteTitle.astro',
+			},
 			customCss: ['./src/styles/global.css'],
 			social: [
 				{
