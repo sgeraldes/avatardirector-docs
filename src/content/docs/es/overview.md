@@ -26,9 +26,9 @@ Una sola conexión de backend alimenta al avatar con todo lo que necesita. El pl
 
 ## Siguientes pasos
 
-- **[Requisitos](./prerequisites)** — versión del motor y plugins requeridos.
-- **[Instalación](./installation)** — cómo meter el plugin en un proyecto.
-- **[Protocolo TCP](./protocol/tcp)** — formato de cable para todo lo que envía el backend.
-- **[Ajustes de lip-sync](./protocol/lipsync-settings)** — formato de audio obligatorio, framing y tunables para integradores TTS.
-- **[Ciclo de vida de la sesión](./protocol/session-lifecycle)** — cuándo empieza y termina una sesión, y qué le hace cada comando.
-- **[Notas de versión LS009](./releases/ls009)** — última actualización para clientes.
+- **[Requisitos](/avatardirector-docs/es/prerequisites/)** — versión del motor y plugins requeridos.
+- **[Instalación](/avatardirector-docs/es/installation/)** — cómo meter el plugin en un proyecto.
+- **[Protocolo TCP](/avatardirector-docs/es/protocol/tcp/)** — formato de cable para todo lo que envía el backend.
+- **[Ajustes de lip-sync](/avatardirector-docs/es/protocol/lipsync-settings/)** — formato de audio obligatorio, framing y tunables para integradores TTS.
+- **[Ciclo de vida de la sesión](/avatardirector-docs/es/protocol/session-lifecycle/)** — cuándo empieza y termina una sesión, y qué le hace cada comando.
+- **[Notas de versión LS009](/avatardirector-docs/es/releases/ls009/)** — última actualización para clientes.

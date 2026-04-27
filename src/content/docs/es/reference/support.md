@@ -16,7 +16,7 @@ Dos minutos de triage te ahorran horas de round-trips. En orden:
 1. **¿El smoke test sigue pasando?** Corré el `smoke_test.py` stdlib-only que viene con el plugin contra una sesión PIE o packaged. Ejercita cada tipo de comando y streamea una sinusoidal de 440 Hz por 1.5 s para que la boca flapee al tono. Si el smoke test falla, te imprime exactamente qué paso se rompió — eso ya es el 80% de un buen bug report.
 2. **¿DLL del Editor vieja?** Como un tercio de los reportes de "el editor está raro" se trazan a una DLL cacheada después de un cambio de propiedad. Cerrá el editor, recompilá el target Editor, reabrí, reintentá. Si el síntoma se fue, listo.
 3. **¿El log de compliance está limpio?** Filtrá tu log Shipping por `LogAvatarCompliance: Warning`. Si la auditoría reporta una desviación (sample rate mal, JSON malformado, clave de config desconocida, valor fuera de rango), el problema está del lado del backend y la línea de log te dice exactamente qué.
-4. **¿El build stamp es actual?** La fila header del overlay de depuración muestra el build stamp (ej. `Apr 22 2026 01:13`). Si estás en una build vieja, el bug puede estar arreglado ya — chequeá las [notas de versión](../releases/ls009).
+4. **¿El build stamp es actual?** La fila header del overlay de depuración muestra el build stamp (ej. `Apr 22 2026 01:13`). Si estás en una build vieja, el bug puede estar arreglado ya — chequeá las [notas de versión](/avatardirector-docs/es/releases/ls009/).
 
 Si después de esas cuatro chequeadas el problema sigue real, abrí un report.
 
@@ -196,7 +196,7 @@ Cada frame TCP que mande tu backend pasa por una auditoría de compliance. Cualq
 
 Filtrá tu log de sesión por `LogAvatarCompliance: Warning` — si el resultado está vacío, tu backend cumple. Si tiene entradas, esos son bug reports pre-clasificados contra tu backend, formateados listos con la desviación específica y la remediación. Mandalos antes de abrir un bug contra el avatar; muchas veces son la respuesta.
 
-Catálogo completo: [Ajustes de lip-sync § Log de auditoría de compliance](../protocol/lipsync-settings#6-log-de-auditoría-de-compliance).
+Catálogo completo: [Ajustes de lip-sync § Log de auditoría de compliance](/avatardirector-docs/es/protocol/lipsync-settings/#6-log-de-auditoría-de-compliance).
 
 ---
 

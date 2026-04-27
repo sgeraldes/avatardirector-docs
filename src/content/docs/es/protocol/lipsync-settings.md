@@ -59,7 +59,7 @@ Cada frame:
 | Tipo | Payload | Significado |
 |---|---|---|
 | `0` | bytes PCM crudos | Chunk de audio (debe cumplir §1). |
-| `1` | JSON UTF-8 | Comando (emoción / microexpresión / config / etc — ver [Protocolo TCP](./tcp)). |
+| `1` | JSON UTF-8 | Comando (emoción / microexpresión / config / etc — ver [Protocolo TCP](/avatardirector-docs/es/protocol/tcp/)). |
 
 Una segunda conexión al mismo puerto se rechaza — cerrá y reconectá; no multiplexes.
 

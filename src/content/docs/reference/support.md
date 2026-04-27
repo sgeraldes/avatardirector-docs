@@ -15,8 +15,8 @@ Two minutes of triage saves hours of round-trips. In order:
 
 1. **Does the smoke test still pass?** Run the stdlib-only `smoke_test.py` shipped with the plugin against a PIE or packaged session. It exercises every command type and streams a 1.5 s 440 Hz sine wave so the mouth flaps at the tone. If the smoke test fails, it prints exactly which step broke — that's already 80% of a useful bug report.
 2. **Stale Editor DLL?** About a third of "weird editor behavior" reports trace to a cached DLL after a property change. Close the editor, rebuild the Editor target, reopen, retry. If the symptom is gone, you're done.
-3. **Compliance log clean?** Filter your Shipping log for `LogAvatarCompliance: Warning`. If the audit reports a deviation (wrong sample rate, malformed JSON, unknown config key, out-of-range value), the issue is on the backend side and the log line tells you exactly what's wrong. See [Lip-sync settings § Compliance audit log](../protocol/lipsync-settings#6-compliance-audit-log).
-4. **Build stamp current?** The debug overlay header row shows the build stamp (e.g. `Apr 22 2026 01:13`). If you're on an old build, the bug may already be fixed — check the [release notes](../releases/ls009).
+3. **Compliance log clean?** Filter your Shipping log for `LogAvatarCompliance: Warning`. If the audit reports a deviation (wrong sample rate, malformed JSON, unknown config key, out-of-range value), the issue is on the backend side and the log line tells you exactly what's wrong. See [Lip-sync settings § Compliance audit log](/avatardirector-docs/protocol/lipsync-settings/#6-compliance-audit-log).
+4. **Build stamp current?** The debug overlay header row shows the build stamp (e.g. `Apr 22 2026 01:13`). If you're on an old build, the bug may already be fixed — check the [release notes](/avatardirector-docs/releases/ls009/).
 
 If after those four checks the issue is still real, file a report.
 
@@ -196,7 +196,7 @@ Every TCP frame your backend sends is run through a compliance audit. Anything t
 
 Filter your session log with `LogAvatarCompliance: Warning` — if the result is empty, your backend is wire-compliant. If it has entries, those are pre-classified bug reports against your backend, ready-formatted with the specific deviation and remediation. Send those before opening a bug against the avatar; they're often the answer.
 
-Full audit catalogue: [Lip-sync settings § Compliance audit log](../protocol/lipsync-settings#6-compliance-audit-log).
+Full audit catalogue: [Lip-sync settings § Compliance audit log](/avatardirector-docs/protocol/lipsync-settings/#6-compliance-audit-log).
 
 ---
 

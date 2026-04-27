@@ -40,11 +40,8 @@ const t = (en: string, es: string) => (lang === 'es' ? es : en);
 	<body class="bg-ad-void text-white">
 		<header class="sticky top-0 z-50 border-b border-white/[0.06] bg-ad-void/80 backdrop-blur-md">
 			<div class="mx-auto flex h-16 max-w-[1280px] items-center justify-between px-6">
-				<a href={lang === 'es' ? esHref : enHref} class="flex items-center gap-2.5" aria-label="AvatarDirector">
-					<img src={`${base}/brand/ad-mark.png`} alt="" height="26" style="height:26px;width:auto;" />
-					<span class="ad-display text-base font-semibold tracking-[0.04em]">
-						AVATAR<span class="ad-grad-text">DIRECTOR</span>
-					</span>
+				<a href={lang === 'es' ? esHref : enHref} class="flex items-center" aria-label="AvatarDirector">
+					<img src={`${base}/brand/ad-lockup-horizontal-final.png`} alt="AvatarDirector" style="height:38px;width:auto;display:block;" />
 				</a>
 				<nav class="hidden items-center gap-7 text-sm text-ad-fog lg:flex">
 					<a href={docsHref} class="transition-colors hover:text-white">{t('Overview', 'Introducción')}</a>
@@ -71,12 +68,7 @@ const t = (en: string, es: string) => (lang === 'es' ? es : en);
 		<footer class="border-t border-white/[0.06] pt-16 pb-12">
 			<div class="mx-auto grid max-w-[1280px] gap-10 px-6 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
 				<div>
-					<div class="flex items-center gap-2.5">
-						<img src={`${base}/brand/ad-mark.png`} alt="" style="height:26px;width:auto;" />
-						<span class="ad-display text-base font-semibold tracking-[0.04em]">
-							AVATAR<span class="ad-grad-text">DIRECTOR</span>
-						</span>
-					</div>
+					<img src={`${base}/brand/ad-lockup-horizontal-final.png`} alt="AvatarDirector" style="height:36px;width:auto;display:block;" />
 					<p class="mt-4 max-w-[320px] text-sm leading-relaxed text-ad-fog">
 						{t(
 							'A proprietary Unreal Engine plugin for real-time MetaHuman avatar control. Available on the Fab Marketplace.',

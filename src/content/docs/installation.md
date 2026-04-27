@@ -20,7 +20,7 @@ For active development across two projects (e.g. an internal source-of-truth rep
 ## After install
 
 1. Add `AvatarDirector` to the `Plugins` array of your `.uproject`, or enable it from the editor's Plugins panel.
-2. Make sure the [required plugins](./prerequisites#required-plugins) are also enabled.
+2. Make sure the [required plugins](/avatardirector-docs/prerequisites/#required-plugins) are also enabled.
 3. Regenerate Visual Studio project files.
 4. Build the editor target.
 5. Open the project, place an `AAvatarDirectorActor` in your level (Pattern A), or have a GameMode spawn one at runtime (Pattern B).

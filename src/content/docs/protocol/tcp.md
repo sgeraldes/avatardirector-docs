@@ -45,7 +45,7 @@ There is no acknowledgement frame. The backend produces, the avatar consumes. Ba
 - **Channels:** 1 (mono).
 - **Encoding:** raw PCM bytes — no WAV/MP3/Opus header.
 
-For the chunk-cadence and silence semantics, see [Lip-sync settings](./lipsync-settings).
+For the chunk-cadence and silence semantics, see [Lip-sync settings](/avatardirector-docs/protocol/lipsync-settings/).
 
 ## Command frames (Type `1`)
 
@@ -73,5 +73,5 @@ Every command is dispatched onto the game thread before any animation state is r
 
 ## See also
 
-- [Lip-sync settings](./lipsync-settings) — the long-form integrator reference for the audio stream.
-- [Session lifecycle](./session-lifecycle) — when sessions start and end, and how `listen` / `stop` / `reset` interact.
+- [Lip-sync settings](/avatardirector-docs/protocol/lipsync-settings/) — the long-form integrator reference for the audio stream.
+- [Session lifecycle](/avatardirector-docs/protocol/session-lifecycle/) — when sessions start and end, and how `listen` / `stop` / `reset` interact.

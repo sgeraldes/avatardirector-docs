@@ -45,7 +45,7 @@ No hay frame de acknowledgement. El backend produce, el avatar consume. La contr
 - **Canales:** 1 (mono).
 - **Encoding:** bytes PCM crudos — sin header WAV/MP3/Opus.
 
-Cadencia de chunks y semántica de silencio: ver [Ajustes de lip-sync](./lipsync-settings).
+Cadencia de chunks y semántica de silencio: ver [Ajustes de lip-sync](/avatardirector-docs/es/protocol/lipsync-settings/).
 
 ## Frames de comando (Tipo `1`)
 
@@ -73,5 +73,5 @@ Cada comando se despacha al game thread antes de leer o escribir estado de anima
 
 ## Ver también
 
-- [Ajustes de lip-sync](./lipsync-settings) — referencia larga para integradores del stream de audio.
-- [Ciclo de vida de la sesión](./session-lifecycle) — cuándo empieza y termina una sesión, y cómo interactúan `listen` / `stop` / `reset`.
+- [Ajustes de lip-sync](/avatardirector-docs/es/protocol/lipsync-settings/) — referencia larga para integradores del stream de audio.
+- [Ciclo de vida de la sesión](/avatardirector-docs/es/protocol/session-lifecycle/) — cuándo empieza y termina una sesión, y cómo interactúan `listen` / `stop` / `reset`.
