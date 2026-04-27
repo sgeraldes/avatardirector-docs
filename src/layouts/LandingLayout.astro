@@ -28,16 +28,20 @@ const t = (en: string, es: string) => (lang === 'es' ? es : en);
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{title}</title>
 		<meta name="description" content={description} />
-		<link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+		<link rel="icon" type="image/png" href={`${base}/favicon.png`} />
+		<link rel="apple-touch-icon" href={`${base}/favicon.png`} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
+		<meta property="og:image" content={`${base}/brand/ad-lockup-horizontal-final.png`} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:image" content={`${base}/brand/ad-lockup-horizontal-final.png`} />
 	</head>
 	<body class="bg-ad-void text-white">
 		<header class="sticky top-0 z-50 border-b border-white/[0.06] bg-ad-void/80 backdrop-blur-md">
 			<div class="mx-auto flex h-16 max-w-[1280px] items-center justify-between px-6">
 				<a href={lang === 'es' ? esHref : enHref} class="flex items-center gap-2.5" aria-label="AvatarDirector">
-					<img src={`${base}/brand/ad-mark.svg`} alt="" height="26" style="height:26px;width:auto;" />
+					<img src={`${base}/brand/ad-mark.png`} alt="" height="26" style="height:26px;width:auto;" />
 					<span class="ad-display text-base font-semibold tracking-[0.04em]">
 						AVATAR<span class="ad-grad-text">DIRECTOR</span>
 					</span>
@@ -68,20 +72,21 @@ const t = (en: string, es: string) => (lang === 'es' ? es : en);
 			<div class="mx-auto grid max-w-[1280px] gap-10 px-6 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
 				<div>
 					<div class="flex items-center gap-2.5">
-						<img src={`${base}/brand/ad-mark.svg`} alt="" style="height:26px;width:auto;" />
+						<img src={`${base}/brand/ad-mark.png`} alt="" style="height:26px;width:auto;" />
 						<span class="ad-display text-base font-semibold tracking-[0.04em]">
 							AVATAR<span class="ad-grad-text">DIRECTOR</span>
 						</span>
 					</div>
 					<p class="mt-4 max-w-[320px] text-sm leading-relaxed text-ad-fog">
 						{t(
-							'An Unreal Engine plugin for real-time MetaHuman avatar control. Open source, MIT licensed.',
-							'Un plugin de Unreal Engine para control de avatares MetaHuman en tiempo real. Open source, licencia MIT.'
+							'A proprietary Unreal Engine plugin for real-time MetaHuman avatar control. Available on the Fab Marketplace.',
+							'Plugin propietario para Unreal Engine que controla avatares MetaHuman en tiempo real. Disponible en el Fab Marketplace.'
 						)}
 					</p>
-					<div class="mt-4 flex gap-2">
+					<div class="mt-4 flex flex-wrap gap-2">
 						<span class="ad-pill text-[11px]"><span class="dot"></span>v0.9.4</span>
 						<span class="ad-pill text-[11px]" style="color:var(--ad-fog);">UE 5.7</span>
+						<span class="ad-pill is-info text-[11px]"><span class="dot"></span>{t('Fab — coming soon', 'Fab — pronto')}</span>
 					</div>
 				</div>
 				<div>
@@ -105,15 +110,15 @@ const t = (en: string, es: string) => (lang === 'es' ? es : en);
 				<div>
 					<div class="mb-3.5 text-[11px] font-semibold tracking-[0.12em] text-ad-fog uppercase">{t('Project', 'Proyecto')}</div>
 					<div class="flex flex-col gap-2.5 text-sm">
-						<a href={githubHref} class="text-ad-fog transition-colors hover:text-white">GitHub</a>
 						<a href={`${docsHref.replace('/overview', '/releases/ls009')}`} class="text-ad-fog transition-colors hover:text-white">{t('Releases', 'Versiones')}</a>
-						<a href={`${githubHref}/issues`} class="text-ad-fog transition-colors hover:text-white">Issues</a>
-						<a href={`${githubHref}/blob/main/LICENSE`} class="text-ad-fog transition-colors hover:text-white">License</a>
+						<a href={`${docsHref.replace('/overview', '/reference/support')}`} class="text-ad-fog transition-colors hover:text-white">{t('Support', 'Soporte')}</a>
+						<a href={githubHref} class="text-ad-fog transition-colors hover:text-white">{t('Docs repo (GitHub)', 'Repo de docs (GitHub)')}</a>
+						<span class="text-ad-fog/60">{t('Fab Marketplace — soon', 'Fab Marketplace — pronto')}</span>
 					</div>
 				</div>
 			</div>
 			<div class="mx-auto mt-12 flex max-w-[1280px] items-center justify-between border-t border-white/[0.06] px-6 pt-6 text-xs text-ad-fog">
-				<span>© 2026 AvatarDirector contributors · MIT License</span>
+				<span>© 2026 AvatarDirector · {t('All rights reserved · Proprietary plugin', 'Todos los derechos reservados · Plugin propietario')}</span>
 				<span class="font-mono">Build · Apr 22 2026 01:13</span>
 			</div>
 		</footer>

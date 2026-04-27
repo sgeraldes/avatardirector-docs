@@ -17,10 +17,10 @@ export default defineConfig({
 			description:
 				'Real-time avatar control for Unreal Engine 5.7. Drives a MetaHuman from any backend over a single TCP socket.',
 			logo: {
-				src: './src/assets/ad-mark.svg',
+				src: './src/assets/ad-mark.png',
 				replacesTitle: false,
 			},
-			favicon: '/favicon.svg',
+			favicon: '/favicon.png',
 			customCss: ['./src/styles/global.css'],
 			social: [
 				{

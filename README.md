@@ -4,6 +4,8 @@ Public documentation site for the **AvatarDirector** Unreal Engine 5.7 plugin �
 
 Live at: **https://sgeraldes.github.io/avatardirector-docs/**
 
+> **Scope.** This repository is *only* the documentation site — the marketing landing, protocol reference, integrator guides, and release notes. It is intentionally public so backend / integrator teams can read and link to the source of truth. **The AvatarDirector plugin itself is proprietary and is not published in this repository or anywhere else on GitHub.** It is being prepared for distribution through the Unreal **Fab Marketplace** (formerly the Unreal Marketplace). No plugin source, headers, binaries, or sample assets live here — only docs.
+
 ## Stack
 
 - [Astro 6](https://astro.build/) + [Starlight](https://starlight.astro.build/)
